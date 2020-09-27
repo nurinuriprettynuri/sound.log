@@ -14,14 +14,32 @@ import {
 import { SectionTitle } from "../text/text";
 import { TrackItem } from "../trackItem/trackItem";
 import SignInButton from "../authModalButton/authModalButton";
+import { connect } from "react-redux";
+import { fetchAllTracks } from "../../redux/actions/trackAction";
+
+const mapStateToProps = (state) => ({
+  tracks: state.tracks,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchAllTracks: () => dispatch(fetchAllTracks()),
+});
 
 const tempData = new Array(8).fill(null);
 const mock = { img: sample, title: "WAP feat.Megan Thee", artist: "Slowdive" };
-const mapped = tempData.map((e) => (
-  <TrackItem img={mock.img} artist={mock.artist} title={mock.title} />
-));
 
-export const Splash = () => {
+const Splash = ({ fetchAllTracks, tracks }) => {
+  const [isLoading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetchAllTracks().then(() => setLoading((prev) => !prev));
+  });
+
+  if (isLoading) {
+    return null;
+  }
+  const mapped = tracks.map((e) => <TrackItem track={e} />);
+
   return (
     <PageWrapper>
       <CenterWrapper>
@@ -44,3 +62,5 @@ export const Splash = () => {
     </PageWrapper>
   );
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Splash);

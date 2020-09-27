@@ -32,7 +32,7 @@ export const clearTrackErrors = () => ({
 
 export const fetchAllTracks = () => (dispatch) =>
   APIUtil.fetchAllTracks().then(
-    (tracks) => dispatch(receiveAllTracks(tracks)),
+    (res) => dispatch(receiveAllTracks(res.data)),
     (err) => dispatch(receiveErrors(err.responseJSON))
   );
 

@@ -17,16 +17,16 @@ const TrackItemDiv = styled.div`
   }
 `;
 
-export const TrackItem = ({ img, title, artist }) => {
+export const TrackItem = ({ track }) => {
   return (
     <TrackItemDiv>
-      <TrackImage small img={img}>
-        <PlayButton small={true} />
+      <TrackImage small img={track.track_image}>
+        <PlayButton small={true} track={track} />
         <LikeButton />
       </TrackImage>
       <TextContainer>
-        <ItemTitle>{title}</ItemTitle>
-        <GreyH6>{artist}</GreyH6>
+        <ItemTitle>{track.title}</ItemTitle>
+        <GreyH6>{track.username}</GreyH6>
       </TextContainer>
     </TrackItemDiv>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Route, Switch } from "react-router-dom";
-import { Splash } from "./components/pages/splash";
+import Splash from "./components/pages/splash";
 import Modal from "./components/authModal/authModal";
 import { TrackUploadPage } from "./components/pages/trackUpload";
 import { TrackIndex } from "./components/pages/trackIndex";
