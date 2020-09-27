@@ -6,17 +6,29 @@ const MiniProfilePicture = styled.input`
   width: 40px;
   height: 40px;
   padding: 0;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 `;
 
 const CommentInput = styled.input`
-  width: 100%;
+  width: 90%;
   height: 100%;
   border: 1px solid #e5e5e5;
-  padding: 0 9px;
+  padding: 0 0px 0 9px;
   margin-left: 5px;
+  margin-right: 5px;
+
   &:focus {
     outline: none;
   }
+`;
+
+const CommentButton = styled.button`
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 `;
 
 export const CommentForm = () => {
@@ -24,6 +36,7 @@ export const CommentForm = () => {
     <CommentInputDiv>
       <MiniProfilePicture />
       <CommentInput />
+      <CommentButton />
     </CommentInputDiv>
   );
 };

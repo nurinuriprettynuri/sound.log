@@ -21,7 +21,7 @@ export const AuthModalButton = ({ openModal, text, currentUser }) => {
   if (currentUser) return null;
   let modal = text === "Sign in" ? "signin" : "register";
   let isOrange = text !== "Sign in";
-  console.log(text);
+
   return (
     <CustomButton
       text={text}

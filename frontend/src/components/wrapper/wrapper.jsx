@@ -5,13 +5,15 @@ export const PageWrapper = styled.div`
   margin-top: 50px;
   justify-content: center;
   background-color: #f2f2f2;
+  width: 100vw;
+  min-width: 900px;
+  overflow-x: scroll;
 `;
 
 export const CenterTopBarWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
   padding: 30px 25px;
   box-sizing: border-box;
   z-index: 10;
@@ -25,9 +27,11 @@ export const ButtonWrapper = styled.div`
 export const CenterWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 90%;
   max-width: 1240px;
-  min-width: 450px;
+  min-width: 900px;
+  background-color: #fff;
 `;
 
 export const TopWrapper = styled.div`
@@ -65,6 +69,7 @@ export const ButtomWrapper = styled.div`
   padding: 20px;
   padding-bottom: 40px;
   box-sizing: border-box;
+  height: 600px;
 `;
 
 export const RowWrapper = styled.div`
@@ -90,21 +95,21 @@ export const CommentInputDiv = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 5px 5px 5px 0;
+  padding: 5px 0px 5px 0;
   height: 40px;
   width: 100%;
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
+  margin-bottom: 20px;
 `;
 
 export const CommentShowDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
-  padding: 10px;
   height: 60px;
   width: 100%;
+  margin: 0;
   box-sizing: border-box;
 `;
 
@@ -112,6 +117,7 @@ export const ProfileImage = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  background-color: #ccc;
   background-image: url(${(props) => props.img});
   background-size: cover;
   background-repeat: no-repeat;
@@ -136,5 +142,14 @@ export const RowSection = styled.div`
 `;
 
 export const VerticalLine = styled.div`
-  border-left: 1px solid #f2f2f2;
+  border-left: 2px solid #f2f2f2;
+`;
+
+export const BottomBorderDiv = styled.div`
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
+  height: 30px;
+
+  border-bottom: 1px solid #f2f2f2;
 `;

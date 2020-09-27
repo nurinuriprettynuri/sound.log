@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { RowSection, ColSection } from "../wrapper/wrapper";
 import { TrackImage } from "../trackImage/trackImage";
@@ -17,10 +18,13 @@ import { connect } from "react-redux";
 import { fetchAllGenres } from "../../redux/actions/genreAction";
 import { createTrack } from "../../redux/actions/trackAction";
 
-const mapStateToProps = (state) => ({
-  genres: state.genres,
-  artist_id: state.user.userId,
-});
+const mapStateToProps = (state, ownProps) => {
+  return {
+    genres: state.genres,
+    artist_id: state.user.userId,
+    history: ownProps.history,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllGenres: () => dispatch(fetchAllGenres()),
@@ -30,7 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 const TrackFormContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  width: 90%;
   padding: 25px 30px;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -47,6 +51,7 @@ const TrackLeftContainer = styled(ColSection)`
 
 const TrackForm = styled(BasicForm)`
   width: 60%;
+  padding: 20px;
   align-items: flex-start;
 `;
 
@@ -54,6 +59,7 @@ const TrackImagePreview = styled(TrackImage)`
   width: 260px;
   height: 260px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 `;
 
 const FileInput = styled.input.attrs({
@@ -92,6 +98,7 @@ const TrackUploadForm = ({
   genres,
   createTrack,
   artist_id,
+  history,
 }) => {
   const { register, handleSubmit } = useForm();
 
@@ -109,22 +116,20 @@ const TrackUploadForm = ({
   };
 
   React.useEffect(() => {
-    fetchAllGenres().then((res) => console.log(res));
+    fetchAllGenres();
   }, []);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    // formData.append("track[title]", data.title);
-    // formData.append("track[audio]", data.audio[0]);
     formData.append("title", data.title);
-    formData.append("artist_id", artist_id);
+    formData.append("artist_id", "7d980ac7-dd7b-4762-a58f-d64159551aa1");
     formData.append("genre", data.genre);
     formData.append("description", data.description);
-    formData.append("track", data.audio[0]);
+    formData.append("audio", data.audio[0]);
     formData.append("image", data.image[0]);
-    console.log(formData, data);
-
-    createTrack(formData);
+    createTrack(formData).then((res) =>
+      history.push(`/tracks/:${res.track.track_id}`)
+    );
   };
 
   return (
@@ -174,4 +179,6 @@ const TrackUploadForm = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrackUploadForm);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(TrackUploadForm)
+);

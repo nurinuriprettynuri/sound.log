@@ -20,11 +20,12 @@ CREATE TABLE tracks(
     title VARCHAR(255) NOT NULL,
     artist_id uuid REFERENCES users(user_id) ON DELETE CASCADE,
     genre_id uuid REFERENCES genres(genre_id) ON DELETE CASCADE,
+    description TEXT,
     track_image VARCHAR(255),
     track_file VARCHAR(255),
     created_at DATE NOT NULL DEFAULT NOW(),
     updated_at DATE NOT NULL DEFAULT NOW()
-    );
+);
 
 CREATE TABLE comments(
     comment_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -54,9 +55,11 @@ INSERT INTO genres (type) VALUES ('House');
 INSERT INTO genres (type) VALUES ('Indie rock');
 INSERT INTO genres (type) VALUES ('Instrumental');
 
+INSERT INTO users (email, username, password) VALUES ('slowdive@gmail.com', 'slowdive', '123456789', 'Reading, UK');
 
 
 
+SELECT * FROM tracks INNER JOIN users ON users.user_id = tracks.artist_id WHERE users.user_id = $1
 
 
 DROP TABLE genres;

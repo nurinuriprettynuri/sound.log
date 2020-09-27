@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
     const genres = await pool.query("SELECT * FROM genres");
     res.json(genres.rows);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server error");
   }
 });

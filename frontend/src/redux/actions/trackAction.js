@@ -11,11 +11,9 @@ export const receiveAllTracks = (tracks) => ({
   tracks,
 });
 
-export const receiveTrack = (payload) => ({
+export const receiveTrack = (track) => ({
   type: RECEIVE_TRACK,
-  track: payload.track,
-  artist: payload.artist,
-  comments: payload.comments,
+  track: track,
 });
 
 export const removeTrack = (track) => ({
@@ -40,13 +38,13 @@ export const fetchAllTracks = () => (dispatch) =>
 
 export const fetchTrack = (id) => (dispatch) =>
   APIUtil.fetchTrack(id).then(
-    (track) => dispatch(receiveTrack(track)),
+    (res) => dispatch(receiveTrack(res.data)),
     (err) => dispatch(receiveErrors(err.responseJSON))
   );
 
 export const createTrack = (track) => (dispatch) =>
   APIUtil.createTrack(track).then(
-    (track) => dispatch(receiveTrack(track)),
+    (res) => dispatch(receiveTrack(res.data)),
     (err) => {
       dispatch(receiveErrors(err.responseJSON));
     }

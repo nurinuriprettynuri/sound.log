@@ -1,4 +1,5 @@
 import { RECEIVE_ALL_TRACKS, RECEIVE_TRACK } from "../actions/trackAction";
+import merge from "lodash/merge";
 
 export const trackReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -6,7 +7,7 @@ export const trackReducer = (state = {}, action) => {
     case RECEIVE_ALL_TRACKS:
       return action.tracks;
     case RECEIVE_TRACK:
-      return action.track;
+      return merge({}, state, { [action.track.track_id]: action.track });
     default:
       return state;
   }

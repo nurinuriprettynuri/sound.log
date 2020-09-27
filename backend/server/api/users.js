@@ -1,8 +1,7 @@
 import express from "express";
-import multer from "multer";
-import AWS from "aws-sdk";
+
 import validation from "../middleware/validations";
-import { v4 as uuidv4 } from "uuid";
+
 import bcrypt from "bcryptjs";
 import pool from "../db/db";
 import dotenv from "dotenv";
@@ -12,43 +11,9 @@ import authorization from "../middleware/authorization";
 dotenv.config();
 const router = express.Router();
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ID,
-  secretAccessKey: process.env.AWS_SECRET,
-});
-
-const storage = multer.memoryStorage({
-  destination: function (req, file, callback) {
-    callback(null, "");
-  },
-});
-
-const upload = multer({ storage }).single("image");
-
-router.post("/upload", upload, (req, res) => {
-  console.log(req.files);
-
-  let myFile = req.files.image.name.split(".");
-  const fileType = myFile[myFile.length - 1];
-
-  const params = {
-    Bucket: process.env.AWS_BUCKET_NAME,
-    Key: `${uuidv4()}.${fileType}`,
-    Body: req.files.image.data,
-  };
-
-  s3.upload(params, (error, data) => {
-    if (error) {
-      res.status(500).send(error);
-    }
-
-    res.status(200).send(data);
-  });
-});
-
 //user registeration
-router.post("/res", async (req, res) => {
-  const { username, email, password } = req.body.user;
+router.post("/", async (req, res) => {
+  const { username, email, password, location } = req.body;
 
   try {
     const user = await pool.query("SELECT * FROM users WHERE email = $1", [
@@ -63,14 +28,13 @@ router.post("/res", async (req, res) => {
     const bcryptPassword = await bcrypt.hash(password, salt);
 
     const newUser = await pool.query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
-      [username, email, bcryptPassword]
+      "INSERT INTO users (username, email, password, location) VALUES ($1, $2, $3, $4) RETURNING *",
+      [username, email, bcryptPassword, location]
     );
 
     const jwtToken = jwtGenerator(newUser.rows[0].user_id);
     return res.json({ jwtToken, userId: newUser.rows[0].user_id });
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server error");
   }
 });
