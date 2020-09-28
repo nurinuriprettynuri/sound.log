@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { playTrack, pauseTrack } from "../../redux/actions/playbarAction";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.playbar);
+  console.log(state.playbar, "what??");
   return {
     playbar: state.playbar,
     track: ownProps.track,
@@ -30,10 +30,9 @@ const PlayButtonWrapper = styled.div`
     props.small &&
     css`
       margin: 0;
-      display: none;
       position: absolute;
-      top: 28%;
-      left: 33%;
+      top: 38%;
+      left: 33.3%;
     `}
 `;
 

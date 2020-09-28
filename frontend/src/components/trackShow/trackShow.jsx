@@ -13,7 +13,7 @@ import { TrackImage } from "../trackImage/trackImage";
 import styled, { css } from "styled-components";
 import { TitleSpan } from "../text/text";
 import { TextContainer } from "../text/textContainer";
-import PlayButton from "../button/playButton";
+import PlayButton from "../playButton/playButton";
 import { Comment } from "../comment/comment";
 import { CommentForm } from "../comment/commentForm";
 import { MiniProfile } from "../miniprofile/miniprofile";

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const PageWrapper = styled.div`
   display: flex;
-  margin-top: 50px;
+  padding-top: 20px;
   justify-content: center;
   background-color: #f2f2f2;
   width: 100vw;
@@ -21,6 +21,7 @@ export const CenterTopBarWrapper = styled.div`
 
 export const ButtonWrapper = styled.div`
   display: flex;
+  margin-right: 15px;
   align-items: center;
 `;
 
@@ -56,6 +57,7 @@ export const MiddleWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
 `;
 

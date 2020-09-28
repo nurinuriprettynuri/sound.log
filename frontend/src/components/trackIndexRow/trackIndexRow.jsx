@@ -15,18 +15,13 @@ export const Line = styled.hr`
   margin: 0;
 `;
 
-const tempData = new Array(4).fill(null);
-const mock = { img: sample, title: "WAP feat.Megan Thee", artist: "Slowdive" };
-const mapped = tempData.map((e) => (
-  <TrackItem img={mock.img} artist={mock.artist} title={mock.title} />
-));
-
-export const TrackIndexRow = ({ title, subtitle }) => {
+export const TrackIndexRow = ({ tracks }) => {
+  const mapped = tracks.map((track) => <TrackItem track={track} />);
   return (
     <RowWrapper>
       <TextContainer>
-        <SectionTitle>{title}</SectionTitle>
-        <ItemTitle big>{subtitle}</ItemTitle>
+        <SectionTitle>TRACKS</SectionTitle>
+        <ItemTitle big>Tracks you can enjoy</ItemTitle>
       </TextContainer>
       <RowTrackWrapper>{mapped}</RowTrackWrapper>
       <Line />

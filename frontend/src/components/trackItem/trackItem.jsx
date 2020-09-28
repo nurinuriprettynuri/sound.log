@@ -3,18 +3,15 @@ import styled from "styled-components";
 import { TrackImage } from "../trackImage/trackImage";
 import { TextContainer } from "../text/textContainer";
 import { ItemTitle, GreyH6 } from "../text/text";
-import PlayButton from "../button/playButton";
+import PlayButton from "../playButton/playButton";
 import { LikeButton } from "../button/likeButton";
 
 const TrackItemDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 180px;
   align-items: flex-start;
   justify-content: flex-start;
-  &:hover ${PlayButton} {
-    display: block;
-  }
 `;
 
 export const TrackItem = ({ track }) => {

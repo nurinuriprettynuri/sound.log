@@ -1,7 +1,8 @@
-import { SET_CURRENT_USER } from "../actions/authAction";
+import { SET_CURRENT_USER, SIGNOUT_CURRENT_USER } from "../actions/authAction";
 
 const INITIAL_STATE = {
   currentUser: null,
+  userId: "",
 };
 
 export const authReducer = (state = INITIAL_STATE, action) => {
@@ -13,6 +14,8 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         userId: action.userId,
         currentUser: action.currentUser,
       };
+    case SIGNOUT_CURRENT_USER:
+      return INITIAL_STATE;
     default:
       return state;
   }

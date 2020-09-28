@@ -3,22 +3,31 @@ import { upload } from "../middleware/multer";
 import pool from "../db/db";
 
 const router = express.Router();
-const uploadFiles = upload.fields([
-  { name: "audio", maxCount: 1 },
-  { name: "image", maxCount: 1 },
-]);
+const trackUpload = upload.any();
 
-const test = upload.any();
+//fetch all tracks from db
+router.get("/", async (req, res) => {
+  try {
+    const tracks = await pool.query(
+      "SELECT tracks.*, users.* FROM tracks INNER JOIN users ON users.user_id = tracks.artist_id ORDER BY tracks.created_at LIMIT 5"
+    );
 
+    res.json(tracks.rows);
+  } catch (err) {
+    res.status(500).send("server error");
+  }
+});
+
+//fetch one track from db
 router.get("/:trackId", async (req, res) => {
   const { trackId } = req.params;
-  console.log(trackId);
+
   try {
     const track = await pool.query(
       "SELECT tracks.*, users.* FROM tracks INNER JOIN users ON users.user_id = tracks.artist_id WHERE tracks.track_id = $1",
       [trackId]
     );
-    console.log(track.rows[0]);
+
     res.json(track.rows[0]);
   } catch (err) {
     // console.log(err);
@@ -26,7 +35,8 @@ router.get("/:trackId", async (req, res) => {
   }
 });
 
-router.post("/", test, async function (req, res, next) {
+//create a track data using multer and multer-s3
+router.post("/", trackUpload, async function (req, res, next) {
   const { title, genre, artist_id, description } = req.body;
   const image = req.files.filter((e) => e.fieldname === "image");
   const audio = req.files.filter((e) => e.fieldname === "audio");

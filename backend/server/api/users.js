@@ -39,9 +39,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    return res.send("success");
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+});
+
 //user signin
 router.post("/signin", async (req, res) => {
-  const { email, password } = req.body.user;
+  const { email, password } = req.body;
 
   try {
     const user = await pool.query("SELECT * FROM users WHERE email = $1", [
@@ -60,8 +68,10 @@ router.post("/signin", async (req, res) => {
       return res.status(401).json("Invalid user information");
     }
 
-    const jwtToken = jwtGenerator(user.rows[0].user_id);
-    return res.json({ jwtToken, user });
+    const userId = user.rows[0].user_id;
+    const jwtToken = jwtGenerator(userId);
+
+    return res.json({ jwtToken, userId });
   } catch (err) {
     res.status(500).send("Server Error");
   }

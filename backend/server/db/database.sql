@@ -42,6 +42,17 @@ CREATE TABLE likes(
     track_id uuid REFERENCES tracks(track_id) ON DELETE CASCADE
 );
 
+/* ADD  ? WITH INDEX ON TRACKS?*/
+
+CREATE TABLE playlists(
+    playlist_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    title VARCHAR(100) NOT NULL,
+    user_id uuid REFERENCES users(user_id) ON DELETE CASCADE,
+    imageURL VARCHAR(255),
+    created_at DATE NOT NULL DEFAULT NOW()
+);
+
+
 INSERT INTO genres (type) VALUES ('Hip hop')
 INSERT INTO genres (type) VALUES ('Rock')
 INSERT INTO genres (type) VALUES ('Jazz')

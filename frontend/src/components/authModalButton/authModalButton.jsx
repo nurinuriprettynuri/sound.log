@@ -1,6 +1,7 @@
 import React from "react";
 import { CustomButton } from "../button/customButton";
 import { openModal } from "../../redux/actions/modalAction";
+
 import { connect } from "react-redux";
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,6 +17,8 @@ const mapDispatchToProps = (dispatch) => {
     openModal: (modal) => dispatch(openModal(modal)),
   };
 };
+
+
 
 export const AuthModalButton = ({ openModal, text, currentUser }) => {
   if (currentUser) return null;

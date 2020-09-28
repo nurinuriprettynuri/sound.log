@@ -73,12 +73,13 @@ export const AuthModalForm = ({
   history,
   closeModal,
 }) => {
-  const { register, handleSubmit, } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const submitAction = modal === "signin" ? signin : registerUser;
+  console.log(modal)
   const onSubmit = (data) => {
     submitAction(data)
-      .then(() => history.push("/upload"))
+      .then(() => history.push("/tracks"))
       .then(() => closeModal());
   };
   let title = modal === "signin" ? "Sign in" : "Create account";
