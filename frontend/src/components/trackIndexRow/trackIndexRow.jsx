@@ -1,29 +1,30 @@
 import React from "react";
-import { RowWrapper, TracShowRowkWrapper } from "../wrapper/wrapper";
+import styled from "styled-components";
+import { RowWrapper, TrackShowRowkWrapper } from "../wrapper/wrapper";
 import { TrackItem } from "../trackItem/trackItem";
-import sample from "../../images/8.jpeg";
 import { SectionTitle, ItemTitle } from "../text/text";
 import { TextContainer } from "../text/textContainer";
-import styled from "styled-components";
 
 export const Line = styled.hr`
   border: 0;
   color: #f00;
   background-color: #f2f2f2;
   height: 2px;
-  width: 98%;
-  margin: 0;
+  width: 100%;
+  margin: 30px 0 30px;
 `;
 
-export const TrackIndexRow = ({ tracks }) => {
-  const mapped = tracks.map((track) => <TrackItem track={track} />);
+export const TrackIndexRow = ({ tracks, title, subTitle }) => {
+  const mapped = Object.keys(tracks).map((trackId) => (
+    <TrackItem key={trackId} track={tracks[trackId]} />
+  ));
   return (
     <RowWrapper>
       <TextContainer>
-        <SectionTitle>TRACKS</SectionTitle>
-        <ItemTitle big>Tracks you can enjoy</ItemTitle>
+        <SectionTitle>{title}</SectionTitle>
+        <ItemTitle big>{subTitle}</ItemTitle>
       </TextContainer>
-      <TracShowRowkWrapper>{mapped}</TracShowRowkWrapper>
+      <TrackShowRowkWrapper>{mapped}</TrackShowRowkWrapper>
       <Line />
     </RowWrapper>
   );

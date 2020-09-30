@@ -18,3 +18,9 @@ export const updateTrack = (track, id) =>
 
 export const deleteTrack = (id) =>
   axios.delete(`http://localhost:8000/api/tracks/${id}`);
+
+export const likeTrack = (payload) =>
+  axios.get(
+    `http://localhost:8000/api/tracks/${payload.trackId}/${payload.userId}`
+  );
+

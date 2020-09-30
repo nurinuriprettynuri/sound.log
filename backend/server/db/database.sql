@@ -70,11 +70,16 @@ INSERT INTO users (email, username, password) VALUES ('slowdive@gmail.com', 'slo
 
 
 
-SELECT * FROM tracks INNER JOIN users ON users.user_id = tracks.artist_id WHERE users.user_id = $1
 
+
+SELECT t.track_id as "trackId", t.title as "title", t.track_file as "audioUrl", t.track_image as "imageUrl", u.user_id as "userId", u.username as "username", u.location as "location", l.liked_by as "likedByUser" FROM tracks as t LEFT JOIN likes as l ON t.track_id = l.track_id INNER JOIN users as u ON t.artist_id = u.user_id
 
 DROP TABLE genres;
 DROP TABLE comments;
 DROP TABLE likes;
 DROP TABLE tracks;
 DROP TABLE users;
+
+
+
+SELECT t.track_id as "trackId", t.title as "title", t.track_file as "audioUrl", t.track_image as "imageUrl", u.user_id as "userId", u.username as "username", u.location as "location", l.liked_by as "likedByUser" FROM tracks as t LEFT JOIN likes as l ON t.track_id = l.track_id INNER JOIN users as u ON t.artist_id = u.user_id WHERE l.liked_by = '4745af93-761a-4ca0-b015-04c5820f36ca'; 

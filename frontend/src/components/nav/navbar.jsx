@@ -5,12 +5,13 @@ export const NavBar = styled.div`
   flex direction: row;
   font-weight: 400;
   justify-content: center;
-  width: 100vw;
   position: fixed;
   height: 50px;
-  
+  width: 100vw;
+  min-width: 900px;
   box-sizing: border-box;
   left: 0;
+  z-index: 20;
 
 ${(props) =>
   props.top

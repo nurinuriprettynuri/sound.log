@@ -59,6 +59,9 @@ export const updateTrack = (track, id) => (dispatch) => {
 
 export const deleteTrack = (id) => (dispatch) =>
   APIUtil.deleteTrack(id).then(
-    (track) => dispatch(receiveTrack(track)),
+    (res) => dispatch(receiveTrack(res.data)),
     (err) => dispatch(receiveErrors(err.responseJSON))
   );
+
+export const likeTrack = (payload) => (dispatch) =>
+  APIUtil.likeTrack(payload).then((res) => dispatch(receiveTrack(res.data)));

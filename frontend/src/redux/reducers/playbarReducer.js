@@ -2,7 +2,7 @@ import { PLAY, PAUSE } from "../actions/playbarAction";
 import merge from "lodash/merge";
 
 const defaultState = {
-  currentTrack: { track_id: "", title: "" },
+  currentTrack: { trackId: "", title: "" },
   isPlaying: false,
   currentTime: 0,
 };
@@ -15,10 +15,10 @@ export const playbarReducer = (state = defaultState, action) => {
   switch (action.type) {
     case PLAY:
       if (
-        !currentTrack.track_id ||
-        currentTrack.track_id !== action.track.track_id
+        !currentTrack.trackId ||
+        currentTrack.trackId !== action.track.trackId
       ) {
-        audio[0].setAttribute("src", action.track.track_file);
+        audio[0].setAttribute("src", action.track.audioUrl);
         audio[0].play();
         return merge({}, state, {
           currentTrack: action.track,

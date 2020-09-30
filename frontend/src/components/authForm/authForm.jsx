@@ -76,7 +76,7 @@ export const AuthModalForm = ({
   const { register, handleSubmit } = useForm();
 
   const submitAction = modal === "signin" ? signin : registerUser;
-  console.log(modal)
+
   const onSubmit = (data) => {
     submitAction(data)
       .then(() => history.push("/tracks"))

@@ -6,6 +6,7 @@ import {
   MiddleWrapper,
   ButtomWrapper,
   ButtonWrapper,
+  PageWrapper,
 } from "../wrapper/wrapper";
 import { SectionTitle } from "../text/text";
 import { TrackItem } from "../trackItem/trackItem";
@@ -13,6 +14,7 @@ import SignInButton from "../authModalButton/authModalButton";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
 import main_img from "../../images/sc_main.png";
+import styled from "styled-components";
 
 const mapStateToProps = (state) => ({
   tracks: state.tracks,
@@ -21,6 +23,16 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTracks: () => dispatch(fetchAllTracks()),
 });
+
+const SplashWrapper = styled(CenterWrapper)`
+  padding-top: 0;
+`;
+
+const Wrapper = styled(PageWrapper)`
+  ${"" /* position: fixed; */}
+  ${"" /* top: 0; */}
+  padding-top: 0;
+`;
 
 const Splash = ({ fetchAllTracks, tracks }) => {
   const [isLoading, setLoading] = React.useState(true);
@@ -33,28 +45,30 @@ const Splash = ({ fetchAllTracks, tracks }) => {
     return null;
   }
 
-  const mapped = tracks.map((e) => <TrackItem track={e} />);
+  const mapped = tracks.map((track) => <TrackItem track={track} />);
 
   return (
-    <CenterWrapper>
-      <TopWrapper img={main_img}>
-        <CenterTopBarWrapper>
-          <ButtonWrapper>LOGO</ButtonWrapper>
-          <ButtonWrapper>
-            <SignInButton text={"Sign in"} />
-          </ButtonWrapper>
-          <ButtonWrapper>
-            <SignInButton text={"Create account"} />
-          </ButtonWrapper>
-        </CenterTopBarWrapper>
-      </TopWrapper>
-      <MiddleWrapper>
-        <SectionTitle>
-          Hear what’s trending for free in the Sound.Log community
-        </SectionTitle>
-      </MiddleWrapper>
-      <ButtomWrapper>{mapped}</ButtomWrapper>
-    </CenterWrapper>
+    <Wrapper>
+      <SplashWrapper>
+        <TopWrapper img={main_img}>
+          <CenterTopBarWrapper>
+            <ButtonWrapper>LOGO</ButtonWrapper>
+            <ButtonWrapper>
+              <SignInButton text={"Sign in"} />
+            </ButtonWrapper>
+            <ButtonWrapper>
+              <SignInButton text={"Create account"} />
+            </ButtonWrapper>
+          </CenterTopBarWrapper>
+        </TopWrapper>
+        <MiddleWrapper>
+          <SectionTitle>
+            Hear what’s trending for free in the Sound.Log community
+          </SectionTitle>
+        </MiddleWrapper>
+        <ButtomWrapper>{mapped}</ButtomWrapper>
+      </SplashWrapper>
+    </Wrapper>
   );
 };
 

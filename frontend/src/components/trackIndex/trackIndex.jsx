@@ -26,11 +26,20 @@ export const TrackIndex = ({ tracks, fetchAllTracks }) => {
   const trandyTracks = tracks;
   const newTracks = tracks;
 
-  const mappedRows = [trandyTracks, newTracks].map((tracks) => (
-    <TrackIndexRow tracks={tracks} />
-  ));
-
-  return <CenterWrapper>{mappedRows}</CenterWrapper>;
+  return (
+    <CenterWrapper>
+      <TrackIndexRow
+        tracks={trandyTracks}
+        title={"New Release"}
+        subTitle={""}
+      />
+      <TrackIndexRow
+        tracks={newTracks}
+        title={"Sound.log: Trending"}
+        subTitle={"Up-and-coming tracks on Sound.log"}
+      />
+    </CenterWrapper>
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrackIndex);

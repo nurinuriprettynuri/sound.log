@@ -96,7 +96,7 @@ export const TopNavBar = ({ currentUser, signout }) => {
           <NavBarLink to="/tracks">Home</NavBarLink>
         </LeftSectionButton>
         <LeftSectionButton>
-          <NavBarLink to="/tracks">Library</NavBarLink>
+          <NavBarLink to="/library">Library</NavBarLink>
         </LeftSectionButton>
         <Section>
           <Autocomplete />

@@ -8,7 +8,6 @@ dotenv.config();
 export default (req, res, next) => {
   // Get token from header
   const token = req.header("jwt_token");
-  console.log(token);
 
   // Check if not token
   if (!token) {
@@ -19,7 +18,6 @@ export default (req, res, next) => {
   try {
     //it is going to give use the user id (user:{id: user.id})
     const payload = jwt.verify(token, process.env.JWT_KEY);
-    console.log(payload.user);
     req.user = payload.user;
     next();
   } catch (err) {

@@ -38,7 +38,7 @@ export const OrangePlayButtonIcon = ({
   const classes = useStyles();
 
   const isCurrentTrack =
-    playbar.isPlaying && playbar.currentTrack.track_id === track.track_id;
+    playbar.isPlaying && playbar.currentTrack.trackId === track.trackId;
 
   const currentButton = isCurrentTrack ? (
     <PauseCircleFilledIcon className={classes.root} />

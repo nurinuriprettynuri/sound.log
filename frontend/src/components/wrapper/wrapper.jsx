@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 export const PageWrapper = styled.div`
   display: flex;
-  padding-top: 20px;
   justify-content: center;
   background-color: #f2f2f2;
   width: 100vw;
@@ -16,7 +15,6 @@ export const CenterTopBarWrapper = styled.div`
   justify-content: space-between;
   padding: 30px 25px;
   box-sizing: border-box;
-  z-index: 10;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -27,6 +25,8 @@ export const ButtonWrapper = styled.div`
 
 export const CenterWrapper = styled.div`
   display: flex;
+  padding-top: 60px;
+  padding-bottom: 80px;
   flex-direction: column;
   align-items: center;
   width: 90%;
@@ -79,16 +79,17 @@ export const RowWrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  height: 480px;
-  padding: 0px 25px 0;
+  height: flex;
+  padding: 0px 25px;
   background-color: #fff;
   box-sizing: border-box;
 `;
 
-export const TracShowRowkWrapper = styled.div`
+export const TrackShowRowkWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 20px;
 `;
 

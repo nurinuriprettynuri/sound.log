@@ -5,9 +5,13 @@ export const trackReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_ALL_TRACKS:
-      return action.tracks;
+      let newState = {};
+      action.tracks.forEach((track) => {
+        newState[track.trackId] = track;
+      });
+      return newState;
     case RECEIVE_TRACK:
-      return merge({}, state, { [action.track.track_id]: action.track });
+      return merge({}, state, { [action.track.trackId]: action.track });
     default:
       return state;
   }
