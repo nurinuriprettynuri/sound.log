@@ -6,16 +6,20 @@ import { TrackItem } from "../trackItem/trackItem";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
 
-const mapStateToProps = ({ tracks, user }) => ({
-  tracks,
-  currentUser: user,
-});
+const mapStateToProps = ({ tracks, user }, ownProps) => {
+  console.log(ownProps);
+  return {
+    tracks,
+    currentUser: user,
+    currentPath: ownProps.location.pathname,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTracks: () => dispatch(fetchAllTracks()),
 });
 
-const Library = ({ tracks, fetchAllTracks, currentUser }) => {
+const Library = ({ tracks, fetchAllTracks, currentUser, currentPath }) => {
   const [isLoading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -25,23 +29,25 @@ const Library = ({ tracks, fetchAllTracks, currentUser }) => {
   if (isLoading) {
     return null;
   }
+
   const likedTracks = Object.keys(tracks).filter(
-    (trackId) =>
-      tracks[trackId].likedByUser === "4745af93-761a-4ca0-b015-04c5820f36ca"
+    (trackId) => tracks[trackId].likedByUser === currentUser.userId
   );
 
   const myTracks = Object.keys(tracks).filter(
-    (trackId) =>
-      tracks[trackId].artistId === "4745af93-761a-4ca0-b015-04c5820f36ca"
+    (trackId) => tracks[trackId].artistId === currentUser.userId
   );
-  
-  const mapped = likedTracks.map((trackId) => (
+
+  const currentTracks =
+    currentPath === "/library/likes" ? likedTracks : myTracks;
+
+  const mapped = currentTracks.map((trackId) => (
     <TrackItem track={tracks[trackId]} />
   ));
 
   return (
     <CenterWrapper>
-      <LibraryNavBar />
+      <LibraryNavBar currentPath={currentPath} />
       <TrackShowRowkWrapper>{mapped}</TrackShowRowkWrapper>
     </CenterWrapper>
   );

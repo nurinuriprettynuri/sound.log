@@ -21,7 +21,7 @@ function App() {
         <Switch>
           <AuthRoute exact path="/" component={Splash} />
           <ProtectedRoute exact path="/upload" component={TrackUploadForm} />
-          <Route exact path="/library" component={Library} />
+          <Route path="/library" component={Library} />
           <Route exact path="/tracks" component={TrackIndex} />
           <Route exact path="/tracks/:trackId" component={TrackShow} />
           <Redirect from="/:sth" to="/" />

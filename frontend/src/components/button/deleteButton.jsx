@@ -23,7 +23,6 @@ const DeleteButtonDiv = styled.div`
 `;
 
 const DeleteButton = ({ deleteTrack, track, userId }) => {
-  console.log(track.artistId !== userId);
   if (track.artistId !== userId) return null;
   return (
     <DeleteButtonDiv>

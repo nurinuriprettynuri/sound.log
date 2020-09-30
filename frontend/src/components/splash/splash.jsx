@@ -45,7 +45,9 @@ const Splash = ({ fetchAllTracks, tracks }) => {
     return null;
   }
 
-  const mapped = tracks.map((track) => <TrackItem track={track} />);
+  const mapped = Object.keys(tracks).map((trackId) => (
+    <TrackItem track={tracks[trackId]} />
+  ));
 
   return (
     <Wrapper>

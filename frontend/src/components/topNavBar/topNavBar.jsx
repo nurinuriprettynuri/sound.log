@@ -19,7 +19,6 @@ const mapStateToProps = ({ user }) => ({
 
 const Logo = styled.div`
   font-family: "Reenie Beanie", cursive;
-  ${"" /* font-family: 'Sue Ellen Francisco', cursive; */}
   width: 100px;
   height: 50px;
   background-color: #ff7802;
@@ -35,6 +34,9 @@ const Logo = styled.div`
 const NavBarLink = styled(Link)`
   text-decoration: none;
   color: #ccc;
+  &:hover: {
+    color: #fff;
+  }
 `;
 
 export const RightSection = materialStyled(Button)({
@@ -79,7 +81,7 @@ export const Section = styled.div`
   }
 `;
 
-export const TopNavBar = ({ currentUser, signout }) => {
+export const TopNavBar = ({ currentUser }) => {
   return (
     <NavBar top>
       <SideNavWrapper />

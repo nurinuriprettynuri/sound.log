@@ -11,6 +11,9 @@ import {
 } from "../form/basicForm";
 import { withRouter } from "react-router-dom";
 
+const mockEmail = 'welcometosoundlog@gmail.com';
+const mockPassword = 'hihi';
+
 const AuthFormContainer = styled.div`
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -104,9 +107,9 @@ export const AuthModalForm = ({
             </React.Fragment>
           )}
           <BasicInputLabel>Email</BasicInputLabel>
-          <BasicFormInput name="email" ref={register({ required: true })} />
+          <BasicFormInput name="email" type="email" ref={register({ required: true })} />
           <BasicInputLabel>Password</BasicInputLabel>
-          <BasicFormInput name="password" ref={register({ required: true })} />
+          <BasicFormInput name="password" type="password" ref={register({ required: true })} />
           <br />
           <AuthButton type="submit">{buttonText}</AuthButton>
           <AuthButton>Sign in with mock account</AuthButton>
