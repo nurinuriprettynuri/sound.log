@@ -8,11 +8,16 @@ import {
   BasicInputLabel,
   BasicForm,
   BasicButton,
-} from "../form/basicForm";
+} from "../designSystem/basicForm";
 import { withRouter } from "react-router-dom";
 
-const mockEmail = 'welcometosoundlog@gmail.com';
-const mockPassword = 'hihi';
+const mockEmail = "welcometosoundlog@gmail.com";
+const mockPassword = "hihi";
+
+const PurpleAuthButton = styled(BasicButton)`
+  background-color: #dabfde;
+  width: 100%;
+`;
 
 const AuthFormContainer = styled.div`
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -33,6 +38,7 @@ const TitleP = styled.p`
   width: 100%;
   margin: 0;
   height: 100%;
+  text-align: center;
 `;
 
 const ErrorDiv = styled.div`
@@ -68,7 +74,7 @@ const FormLine = styled(Line)`
 `;
 
 export const AuthModalForm = ({
-  modal,
+  whichAuth,
   err,
   handleSwitch,
   signin,
@@ -78,20 +84,20 @@ export const AuthModalForm = ({
 }) => {
   const { register, handleSubmit } = useForm();
 
-  const submitAction = modal === "signin" ? signin : registerUser;
+  const submitAction = whichAuth === "signin" ? signin : registerUser;
 
   const onSubmit = (data) => {
     submitAction(data)
       .then(() => history.push("/tracks"))
       .then(() => closeModal());
   };
-  let title = modal === "signin" ? "Sign in" : "Create account";
+  let title = whichAuth === "signin" ? "Sign in" : "Create account";
   let buttonText = "Continue";
   let optionText =
-    modal === "signin" ? "Join Sound.Log" : "Already have account";
-  let switchModal = modal === "signin" ? "register" : "signin";
+    whichAuth === "signin" ? "Join Sound.Log" : "Already have account";
+  let switchModal = whichAuth === "signin" ? "register" : "signin";
   return (
-    <AuthFormContainer big={modal !== "signin"}>
+    <AuthFormContainer big={whichAuth !== "signin"}>
       <TitleDiv>
         <TitleP>{title}</TitleP>
       </TitleDiv>
@@ -100,22 +106,32 @@ export const AuthModalForm = ({
       </ErrorDiv>
       <FormDiv>
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
-          {modal !== "signin" && (
+          {whichAuth !== "signin" && (
             <React.Fragment>
               <BasicInputLabel>Username</BasicInputLabel>
               <BasicFormInput name="username" ref={register()} />
             </React.Fragment>
           )}
           <BasicInputLabel>Email</BasicInputLabel>
-          <BasicFormInput name="email" type="email" ref={register({ required: true })} />
+          <BasicFormInput
+            name="email"
+            type="email"
+            ref={register({ required: true })}
+          />
           <BasicInputLabel>Password</BasicInputLabel>
-          <BasicFormInput name="password" type="password" ref={register({ required: true })} />
+          <BasicFormInput
+            name="password"
+            type="password"
+            ref={register({ required: true })}
+          />
           <br />
           <AuthButton type="submit">{buttonText}</AuthButton>
-          <AuthButton>Sign in with mock account</AuthButton>
+          <PurpleAuthButton>Sign in with mock account</PurpleAuthButton>
           <br />
           <FormLine />
-          <AuthButton onClick={() => handleSwitch(switchModal)}>
+          <AuthButton
+            onClick={() => handleSwitch({ type: "auth", data: switchModal })}
+          >
             {optionText}
           </AuthButton>
         </AuthForm>

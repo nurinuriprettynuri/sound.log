@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import Splash from "./components/splash/splash";
 import Modal from "./components/authModal/authModal";
+import ConfirmModal from "./components/confirmModal/deleteConfirmModal";
 import Library from "./components/library/library";
 import TrackUploadForm from "./components/trackForm/trackUploadForm.container";
 import TrackIndex from "./components/trackIndex/trackIndex";
@@ -15,19 +16,20 @@ import TopNavBar from "./components/topNavBar/topNavBar";
 function App() {
   return (
     <div className="App">
-      <TopNavBar />
-      <PageWrapper>
-        <Modal />
-        <Switch>
+      <Modal />
+      <ConfirmModal />
+      <Switch>
+        <PageWrapper>
+          <ProtectedRoute path="/" component={TopNavBar} />
           <AuthRoute exact path="/" component={Splash} />
           <ProtectedRoute exact path="/upload" component={TrackUploadForm} />
-          <Route path="/library" component={Library} />
-          <Route exact path="/tracks" component={TrackIndex} />
-          <Route exact path="/tracks/:trackId" component={TrackShow} />
+          <ProtectedRoute path="/library" component={Library} />
+          <ProtectedRoute exact path="/tracks" component={TrackIndex} />
+          <ProtectedRoute exact path="/tracks/:trackId" component={TrackShow} />
           <Redirect from="/:sth" to="/" />
-        </Switch>
-      </PageWrapper>
-      <PlayBar />
+          <PlayBar />
+        </PageWrapper>
+      </Switch>
     </div>
   );
 }

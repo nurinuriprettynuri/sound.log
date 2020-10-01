@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  CenterTopBarWrapper,
   CenterWrapper,
   TopWrapper,
   MiddleWrapper,
@@ -13,24 +12,46 @@ import { TrackItem } from "../trackItem/trackItem";
 import SignInButton from "../authModalButton/authModalButton";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
-import main_img from "../../images/sc_main.png";
 import styled from "styled-components";
+import { mainLogo } from "../designSystem/logo";
+import main from "../../images/sp.gif";
 
-const mapStateToProps = (state) => ({
-  tracks: state.tracks,
+const mapStateToProps = ({ tracks }) => ({
+  tracks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTracks: () => dispatch(fetchAllTracks()),
 });
 
+export const SplashButtonwrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: inherit;
+  padding: 30px 25px;
+  box-sizing: border-box;
+`;
+
 const SplashWrapper = styled(CenterWrapper)`
   padding-top: 0;
 `;
 
+const SplashImage = styled(TopWrapper)`
+  background-color: #dabfde;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TempDiv = styled.img`
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+`;
+
 const Wrapper = styled(PageWrapper)`
-  ${"" /* position: fixed; */}
-  ${"" /* top: 0; */}
+  position: fixed;
+  top: 0;
   padding-top: 0;
 `;
 
@@ -52,20 +73,19 @@ const Splash = ({ fetchAllTracks, tracks }) => {
   return (
     <Wrapper>
       <SplashWrapper>
-        <TopWrapper img={main_img}>
-          <CenterTopBarWrapper>
-            <ButtonWrapper>LOGO</ButtonWrapper>
+        <SplashImage>
+          <SplashButtonwrapper>{mainLogo}</SplashButtonwrapper>
+          <TempDiv src={main} />
+          <SplashButtonwrapper>
             <ButtonWrapper>
               <SignInButton text={"Sign in"} />
-            </ButtonWrapper>
-            <ButtonWrapper>
               <SignInButton text={"Create account"} />
             </ButtonWrapper>
-          </CenterTopBarWrapper>
-        </TopWrapper>
+          </SplashButtonwrapper>
+        </SplashImage>
         <MiddleWrapper>
           <SectionTitle>
-            Hear what’s trending for free in the Sound.Log community
+            Hear what’s trending in the Sound.Log community
           </SectionTitle>
         </MiddleWrapper>
         <ButtomWrapper>{mapped}</ButtomWrapper>

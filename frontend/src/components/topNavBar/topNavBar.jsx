@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import SignInButton from "../authModalButton/authModalButton";
-import { NavBar, MiddleNavWrapper, SideNavWrapper } from "../nav/navbar";
+import {
+  NavBar,
+  MiddleNavWrapper,
+  SideNavWrapper,
+} from "../designSystem/navbar";
 import ToggleMenu from "../toggleButton/toggleButton";
 import Autocomplete from "../autocomplete/autocomplete";
 import { Link } from "react-router-dom";
@@ -11,25 +15,11 @@ import { styled as materialStyled } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import HeadsetIcon from "@material-ui/icons/Headset";
+import { mainOrangeLogo } from "../designSystem/logo";
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser,
 });
-
-const Logo = styled.div`
-  font-family: "Reenie Beanie", cursive;
-  width: 100px;
-  height: 50px;
-  background-color: #ff7802;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  padding: 0 5px;
-  box-sizing: border-box;
-`;
 
 const NavBarLink = styled(Link)`
   text-decoration: none;
@@ -87,18 +77,13 @@ export const TopNavBar = ({ currentUser }) => {
       <SideNavWrapper />
       <MiddleNavWrapper>
         <LeftSectionButton>
-          <NavBarLink to="/">
-            <Logo>
-              <HeadsetIcon />
-              {".log()"}
-            </Logo>
-          </NavBarLink>
+          <NavBarLink to="/">{mainOrangeLogo}</NavBarLink>
         </LeftSectionButton>
         <LeftSectionButton>
           <NavBarLink to="/tracks">Home</NavBarLink>
         </LeftSectionButton>
         <LeftSectionButton>
-          <NavBarLink to="/library">Library</NavBarLink>
+          <NavBarLink to="/library/likes">Library</NavBarLink>
         </LeftSectionButton>
         <Section>
           <Autocomplete />
@@ -122,7 +107,7 @@ export const TopNavBar = ({ currentUser }) => {
             <RightSection>
               <AccountCircleIcon />
               &nbsp;
-              <NavBarLink to="/">SLOWDIVE</NavBarLink>
+              <NavBarLink to="/">{currentUser.username}</NavBarLink>
             </RightSection>
           </React.Fragment>
         )}

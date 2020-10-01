@@ -4,19 +4,21 @@ import AuthModalForm from "../authForm/authForm";
 import { connect } from "react-redux";
 import { openModal, closeModal } from "../../redux/actions/modalAction";
 import { register, signin } from "../../redux/actions/authAction";
+import ClearIcon from "@material-ui/icons/Clear";
+import { TrackItemButtonDiv } from "../designSystem/button";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openModal: (modal) => dispatch(openModal(modal)),
-    closeModal: () => dispatch(closeModal()),
+    openModal: (payload) => dispatch(openModal(payload)),
+    closeModal: () => dispatch(closeModal({ type: "auth" })),
     signin: (user) => dispatch(signin(user)),
     registerUser: (user) => dispatch(register(user)),
   };
 };
 
-const mapStateToProps = ({ modal }) => {
+const mapStateToProps = ({ modal: { auth } }) => {
   return {
-    modal,
+    authModal: auth,
   };
 };
 
@@ -30,11 +32,9 @@ const ModalBackground = styled.div`
   z-index: 20;
 `;
 
-const CloseModalButton = styled.button`
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  color: #333;
+const ModalClearDiv = styled(TrackItemButtonDiv)`
+  top: 0;
+  right: 1%;
 `;
 
 const ModalWrapper = styled.div`
@@ -46,20 +46,22 @@ const ModalWrapper = styled.div`
 `;
 
 export const Modal = ({
-  modal,
+  authModal,
   closeModal,
   openModal,
   registerUser,
   signin,
 }) => {
-  if (!modal) return null;
+  if (!authModal) return null;
 
   return (
     <ModalBackground>
-      <CloseModalButton onClick={closeModal} />
+      <ModalClearDiv onClick={closeModal}>
+        <ClearIcon fontSize={"large"} />
+      </ModalClearDiv>
       <ModalWrapper>
         <AuthModalForm
-          modal={modal}
+          whichAuth={authModal}
           handleSwitch={openModal}
           signin={signin}
           registerUser={registerUser}

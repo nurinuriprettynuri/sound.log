@@ -4,8 +4,8 @@ import { TrackImage } from "../trackImage/trackImage";
 import { TextContainer } from "../text/textContainer";
 import { ItemTitle, GreyH6 } from "../text/text";
 import { OrangePlayButton } from "../playButton/playButton";
-import LikeButton from "../button/likeButton";
-import DeleteButton from "../button/deleteButton";
+import LikeButton from "../likeButton/likeButton";
+import DeleteButton from "../deleteButton/deleteButton";
 
 const TrackItemDiv = styled.div`
   display: flex;

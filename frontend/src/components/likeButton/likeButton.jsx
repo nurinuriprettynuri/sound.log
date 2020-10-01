@@ -1,25 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { TrackItemButtonDiv } from "../designSystem/button";
 import { likeTrack } from "../../redux/actions/trackAction";
 import { connect } from "react-redux";
 
-const mapStateToProps = ({ user: { userId } }, ownProps) => ({
+const mapStateToProps = ({ currentUser: { userId } }, { liked, trackId }) => ({
   userId,
-  liked: ownProps.liked,
-  trackId: ownProps.trackId,
+  liked,
+  trackId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   likeTrack: (payload) => dispatch(likeTrack(payload)),
 });
 
-const LikeButtonDiv = styled.div`
-  width: 25px;
-  height: 25px;
+const LikeButtonDiv = styled(TrackItemButtonDiv)`
   right: 0;
   bottom: 0;
-  position: absolute;
 `;
 
 const LikeButton = ({ liked, likeTrack, trackId, userId }) => {

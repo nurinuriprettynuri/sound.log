@@ -1,35 +1,32 @@
 import React from "react";
-import { CustomButton } from "../button/customButton";
+import { CustomButton } from "../designSystem/button";
 import { openModal } from "../../redux/actions/modalAction";
-
 import { connect } from "react-redux";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ currentUser }, { text }) => {
   return {
-    modal: state.modal,
-    currentUser: state.currentUser,
-    text: ownProps.text,
+    currentUser,
+    text,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openModal: (modal) => dispatch(openModal(modal)),
+    openModal: (payload) => dispatch(openModal(payload)),
   };
 };
 
-
-
 export const AuthModalButton = ({ openModal, text, currentUser }) => {
-  if (currentUser) return null;
-  let modal = text === "Sign in" ? "signin" : "register";
+  if (currentUser.userId) return null;
+  let whichAuth = text === "Sign in" ? "signin" : "register";
   let isOrange = text !== "Sign in";
-
+  let wide = text !== "Sign in";
   return (
     <CustomButton
       text={text}
       orange={isOrange}
-      handleClick={() => openModal(modal)}
+      wide={wide}
+      handleClick={() => openModal({ type: "auth", data: whichAuth })}
     />
   );
 };

@@ -10,8 +10,6 @@ const defaultState = {
 export const playbarReducer = (state = defaultState, action) => {
   Object.freeze(state);
 
-  const { currentTrack, isPlaying } = state;
-
   switch (action.type) {
     case PLAY:
       return merge({}, state, {

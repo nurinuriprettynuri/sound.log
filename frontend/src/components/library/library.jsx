@@ -6,11 +6,11 @@ import { TrackItem } from "../trackItem/trackItem";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
 
-const mapStateToProps = ({ tracks, user }, ownProps) => {
+const mapStateToProps = ({ tracks, currentUser }, ownProps) => {
   console.log(ownProps);
   return {
     tracks,
-    currentUser: user,
+    currentUser,
     currentPath: ownProps.location.pathname,
   };
 };
@@ -48,6 +48,11 @@ const Library = ({ tracks, fetchAllTracks, currentUser, currentPath }) => {
   return (
     <CenterWrapper>
       <LibraryNavBar currentPath={currentPath} />
+      {!currentTracks.length && (
+        <React.Fragment>
+          <TrackShowRowkWrapper />
+        </React.Fragment>
+      )}
       <TrackShowRowkWrapper>{mapped}</TrackShowRowkWrapper>
     </CenterWrapper>
   );

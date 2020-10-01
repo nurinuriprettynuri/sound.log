@@ -1,34 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { TrackItemButtonDiv } from "../designSystem/button";
 import { deleteTrack } from "../../redux/actions/trackAction";
+import { openModal } from "../../redux/actions/modalAction";
 import { connect } from "react-redux";
-import trackIndex from "../trackIndex/trackIndex";
 
-const mapStateToProps = ({ user: { userId } }, ownProps) => ({
+const mapStateToProps = ({ currentUser: { userId } }, { track }) => ({
   userId,
-  track: ownProps.track,
+  track,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteTrack: (trackId) => dispatch(deleteTrack(trackIndex)),
+  openModal: (payload) => dispatch(openModal(payload)),
 });
 
-const DeleteButtonDiv = styled.div`
-  width: 25px;
-  height: 25px;
+const DeleteButtonDiv = styled(TrackItemButtonDiv)`
   right: 0;
   top: 0;
-  position: absolute;
 `;
 
-const DeleteButton = ({ deleteTrack, track, userId }) => {
+const DeleteButton = ({ track, userId, openModal }) => {
   if (track.artistId !== userId) return null;
+
   return (
     <DeleteButtonDiv>
       <DeleteIcon
         style={{ color: "#333" }}
-        onClick={() => deleteTrack(track.trackId)}
+        onClick={() => openModal({ type: "confirm", data: track.trackId })}
       />
     </DeleteButtonDiv>
   );

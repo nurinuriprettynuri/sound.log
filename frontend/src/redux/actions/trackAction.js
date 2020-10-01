@@ -59,7 +59,7 @@ export const updateTrack = (track, id) => (dispatch) => {
 
 export const deleteTrack = (id) => (dispatch) =>
   APIUtil.deleteTrack(id).then(
-    (res) => dispatch(receiveTrack(res.data)),
+    (res) => dispatch(removeTrack(res.data)),
     (err) => dispatch(receiveErrors(err.responseJSON))
   );
 

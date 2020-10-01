@@ -33,6 +33,7 @@ export const TitleP = styled.p`
   width: 100%;
   margin: 0;
   height: 100%;
+  text-align: center;
 `;
 
 export const BasicInputLabel = styled.label`
@@ -49,6 +50,7 @@ export const BasicForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fff;
 `;
 
 export const BasicTextArea = styled.textarea`
@@ -72,7 +74,7 @@ export const BasicButton = styled.button`
   padding: 5px;
   text-align: center;
   height: 40px;
-  background-color: #ff5500;
+  background-color: #ec9706;
   border-radius: 4px;
   border: none;
   font-size: 17px;

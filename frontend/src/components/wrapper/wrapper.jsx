@@ -7,14 +7,7 @@ export const PageWrapper = styled.div`
   width: 100vw;
   min-width: 900px;
   overflow-x: scroll;
-`;
-
-export const CenterTopBarWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 30px 25px;
-  box-sizing: border-box;
+  height: 100%;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -31,7 +24,7 @@ export const CenterWrapper = styled.div`
   align-items: center;
   width: 90%;
   max-width: 1240px;
-  min-width: 900px;
+  min-width: 600px;
   background-color: #fff;
 `;
 

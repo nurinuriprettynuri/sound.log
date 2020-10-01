@@ -19,7 +19,7 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => (
     path={path}
     exact={exact}
     render={(props) =>
-      loggedIn ? <Component {...props} /> : <Redirect to="/login" />
+      loggedIn ? <Component {...props} /> : <Redirect to="/" />
     }
   />
 );
@@ -41,7 +41,7 @@ const AreaProtected = ({ component: Component, path, loggedIn, exact }) => (
 // access the Redux state to check if the user is logged in
 const mapStateToProps = (state) => {
   return {
-    loggedIn: Boolean(state.user.user_id),
+    loggedIn: Boolean(state.currentUser.userId),
   };
 };
 

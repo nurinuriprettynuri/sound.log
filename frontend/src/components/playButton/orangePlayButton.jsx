@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     height: "100%",
-    color: "#ff7802",
+    color: "#ec9706",
     fontSize: "60px",
   },
 });

@@ -7,7 +7,7 @@ import { TrackUploadForm } from "./trackForm";
 const mapStateToProps = (state, ownProps) => {
   return {
     genres: state.genres,
-    artist_id: state.user.userId,
+    artist_id: state.currentUser.userId,
     history: ownProps.history,
   };
 };

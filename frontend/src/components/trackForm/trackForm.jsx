@@ -12,7 +12,7 @@ import {
   BasicTextArea,
   BasicButton,
   BasicSelect,
-} from "../form/basicForm";
+} from "../designSystem/basicForm";
 import { useForm } from "react-hook-form";
 
 const TrackFormContainer = styled.div`
@@ -75,6 +75,7 @@ const ButtonWrapper = styled.div`
 
 const TrackFormTitleDiv = styled(TitleDiv)`
   margin-bottom: 30px;
+  justify-content: flex-start;
 `;
 
 export const TrackUploadForm = ({

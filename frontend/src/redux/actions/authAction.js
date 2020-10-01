@@ -5,8 +5,7 @@ export const SIGNOUT_CURRENT_USER = "SIGNOUT_CURRENT_USER";
 
 export const setCurrentUser = (payload) => ({
   type: SET_CURRENT_USER,
-  currentUser: payload.jwtToken,
-  userId: payload.userId,
+  user: payload,
 });
 
 export const signoutCurrentUser = () => ({

@@ -27,13 +27,19 @@ router.post("/", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const bcryptPassword = await bcrypt.hash(password, salt);
 
-    const newUser = await pool.query(
+    await pool.query(
       "INSERT INTO users (username, email, password, location) VALUES ($1, $2, $3, $4) RETURNING *",
       [username, email, bcryptPassword, location]
     );
 
-    const jwtToken = jwtGenerator(newUser.rows[0].user_id);
-    return res.json({ jwtToken, userId: newUser.rows[0].user_id });
+    const newUser = await pool.query(
+      `SELECT user_id as "userId", username, location, email FROM users WHERE email = $1`,
+      [email]
+    );
+
+    const jwtToken = jwtGenerator(newUser.rows[0].userId);
+
+    return res.json({ jwtToken, ...newUser.rows[0] });
   } catch (err) {
     res.status(500).send("Server error");
   }
@@ -52,9 +58,10 @@ router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
+    const user = await pool.query(
+      `SELECT user_id as "userId", username, location, email, password FROM users WHERE email = $1`,
+      [email]
+    );
 
     //email validation
     if (user.rows.length === 0) {
@@ -67,11 +74,9 @@ router.post("/signin", async (req, res) => {
     if (!validPassword) {
       return res.status(401).json("Invalid user information");
     }
+    const jwtToken = jwtGenerator(user.rows[0].userId);
 
-    const userId = user.rows[0].user_id;
-    const jwtToken = jwtGenerator(userId);
-
-    return res.json({ jwtToken, userId });
+    return res.json({ jwtToken, ...user.rows[0] });
   } catch (err) {
     res.status(500).send("Server Error");
   }
@@ -84,68 +89,5 @@ router.get("/is-verify", authorization, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
-/* GET users listing. */
-// router.get("/", function (req, res, next) {
-//   res.send("respond with a resource?");
-// });
-
-// router.post("/upload-avatar", async (req, res) => {
-//   try {
-//     if (!req.files) {
-//       res.send({
-//         status: false,
-//         message: "No file uploaded",
-//       });
-//     } else {
-//       //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-//       let avatar = req.files.avatar;
-
-//       //Use the mv() method to place the file in upload directory (i.e. "uploads")
-//       avatar.mv("./uploads/" + avatar.name);
-
-//       //send response
-//       res.send({
-//         status: true,
-//         message: "File is uploaded",
-//         data: {
-//           name: avatar.name,
-//           mimetype: avatar.mimetype,
-//           size: avatar.size,
-//         },
-//       });
-//     }
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
-
-// app.post("/upload-profile-pic", (req, res) => {
-//   // 'profile_pic' is the name of our file input field in the HTML form
-//   let upload = multer({
-//     storage: storage,
-//     fileFilter: helpers.imageFilter,
-//   }).single("profile_pic");
-
-//   upload(req, res, function (err) {
-//     // req.file contains information of uploaded file
-//     // req.body contains information of text fields, if there were any
-
-//     if (req.fileValidationError) {
-//       return res.send(req.fileValidationError);
-//     } else if (!req.file) {
-//       return res.send("Please select an image to upload");
-//     } else if (err instanceof multer.MulterError) {
-//       return res.send(err);
-//     } else if (err) {
-//       return res.send(err);
-//     }
-
-//     // Display uploaded image for user validation
-//     res.send(
-//       `You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`
-//     );
-//   });
-// });
 
 module.exports = router;
