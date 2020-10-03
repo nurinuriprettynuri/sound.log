@@ -5,7 +5,6 @@ import {
   ColSection,
   VerticalLine,
   BottomBorderDiv,
-  ShowTopWrapper,
 } from "../wrapper/wrapper";
 import show_bg from "../../images/show_background.jpg";
 import { TrackImage } from "../trackImage/trackImage";
@@ -14,7 +13,7 @@ import { TitleSpan } from "../text/text";
 import { TextContainer } from "../text/textContainer";
 import { OrangePlayButton } from "../playButton/playButton";
 import { Comment } from "../comment/comment";
-import { CommentForm } from "../comment/commentForm";
+import CommentForm from "../comment/comment.container";
 import { MiniProfile } from "../miniprofile/miniprofile";
 import { ColumnSection } from "../columnSection/columnSection";
 import EditIcon from "@material-ui/icons/Edit";
@@ -78,15 +77,28 @@ const IconWrapper = styled.div`
 
 const RelatedTrackSection = styled(ColSection)``;
 
-export const TrackShow = ({ fetchTrack, track, userId, trackId }) => {
+export const TrackShow = ({
+  fetchTrack,
+  track,
+  userId,
+  trackId,
+  fetchComments,
+  comments,
+}) => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    fetchTrack(trackId).then(() => setLoading(false));
+    fetchTrack(trackId)
+      .then(() => fetchComments(trackId))
+      .then(() => setLoading(false));
   }, []);
 
   if (isLoading) {
     return null;
   }
+
+  const mapped = Object.keys(comments).map((key) => (
+    <Comment username={comments[key].userId} content={comments[key].body} />
+  ));
 
   return (
     <CenterWrapper>

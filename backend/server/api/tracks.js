@@ -49,7 +49,7 @@ router.delete("/:trackId", async (req, res) => {
       trackId,
     ]);
 
-    res.json(deleted.rows[0]);
+    res.json(trackId);
   } catch (err) {
     res.status(500).send("server error");
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ProfileImage,
   CommentShowDiv,
@@ -11,8 +11,6 @@ import styled from "styled-components";
 const CommentTextContainer = styled(TextContainer)`
   margin-left: 15px;
 `;
-
-const CommentTitleDiv = styled(BottomBorderDiv)``;
 
 export const Comment = ({ username, content }) => {
   return (

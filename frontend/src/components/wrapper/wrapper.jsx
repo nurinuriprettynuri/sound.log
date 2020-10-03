@@ -79,7 +79,7 @@ export const RowkWrapper = styled.div`
   margin-top: 20px;
 `;
 
-export const CommentInputDiv = styled.div`
+export const CommentInputDiv = styled.form`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

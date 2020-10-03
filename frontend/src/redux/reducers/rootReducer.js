@@ -6,6 +6,7 @@ import { genreReducer } from "./genreReducer";
 import { modalReducer } from "./modalReducer";
 import { playbarReducer } from "./playbarReducer";
 import { likeReducer } from "./likeReducer";
+import { commentReducer } from "./commentReducer";
 
 export const rootReducer = combineReducers({
   currentUser: authReducer,
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   genres: genreReducer,
   playbar: playbarReducer,
   liked: likeReducer,
+  comments: commentReducer,
 });

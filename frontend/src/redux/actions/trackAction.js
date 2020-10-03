@@ -16,9 +16,9 @@ export const receiveTrack = (track) => ({
   track: track,
 });
 
-export const removeTrack = (track) => ({
+export const removeTrack = (trackId) => ({
   type: REMOVE_TRACK,
-  trackId: track.id,
+  trackId,
 });
 
 export const receiveErrors = (errors) => ({

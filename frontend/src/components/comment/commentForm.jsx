@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CommentInputDiv } from "../wrapper/wrapper";
+import { useForm } from "react-hook-form";
 
 const MiniProfilePicture = styled.input`
   width: 40px;
@@ -31,12 +32,21 @@ const CommentButton = styled.button`
   box-sizing: border-box;
 `;
 
-export const CommentForm = () => {
+export const CommentForm = ({ userId, trackId, createComment }) => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    data.userId = userId;
+    data.trackId = trackId;
+
+    createComment(data);
+  };
+
   return (
-    <CommentInputDiv>
+    <CommentInputDiv onSubmit={handleSubmit(onSubmit)}>
       <MiniProfilePicture />
-      <CommentInput />
-      <CommentButton />
+      <CommentInput name="body" ref={register({ required: true })} />
+      <CommentButton value="submit" />
     </CommentInputDiv>
   );
 };
