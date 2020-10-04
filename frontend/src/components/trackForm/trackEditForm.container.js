@@ -14,7 +14,6 @@ const mapStateToProps = (
     },
   }
 ) => {
-  console.log(trackId);
   return {
     genres,
     history,

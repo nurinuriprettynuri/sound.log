@@ -18,16 +18,15 @@ const TrackItemDiv = styled.div`
 `;
 
 export const TrackItem = ({ track }) => {
-  console.log(track, "slslslsls");
   return (
     <TrackItemDiv>
-      {/* <Link to={`/tracks/${track.trackId}`}> */}
-      <TrackImage small img={track.imageUrl}>
-        <OrangePlayButton small={true} track={track} />
-        <DeleteButton track={track} />
-        <LikeButton liked={track.liked} trackId={track.trackId} />
-      </TrackImage>
-      {/* </Link> */}
+      <Link to={`/tracks/${track.trackId}`}>
+        <TrackImage small img={track.imageUrl}>
+          <OrangePlayButton small={true} track={track} />
+          <DeleteButton track={track} />
+          <LikeButton liked={track.liked} trackId={track.trackId} />
+        </TrackImage>
+      </Link>
       <TextContainer>
         <ItemTitle>{track.title}</ItemTitle>
         <GreyH6>{track.username}</GreyH6>

@@ -18,8 +18,8 @@ export const register = (user) => (dispatch) =>
 export const signin = (user) => (dispatch) =>
   APIUtil.signin(user).then((res) => dispatch(setCurrentUser(res.data)));
 
-export const signout = () => (dispatch) =>
-  APIUtil.signout().then(() => dispatch(signoutCurrentUser()));
+export const signout = (userId) => (dispatch) => () =>
+  dispatch(signoutCurrentUser(userId));
 
 export const fetchUser = (userId) => (dispatch) =>
   APIUtil.fetchUser(userId).then((res) => dispatch(setCurrentUser(res.data)));

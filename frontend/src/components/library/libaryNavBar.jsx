@@ -14,7 +14,7 @@ const NavWrapper = styled.div`
 
 const NavBarLink = styled(Link)`
   font-size: 24px;
-  color: ${(props) => (props.currentPath === props.to ? "#ff7802" : "#333")};
+  color: ${(props) => (props.path === props.to ? "#ff7802" : "#333")};
   text-decoration: none;
   padding: 5px 10px;
   border-bottom: ${(props) =>
@@ -32,13 +32,13 @@ const Blank = styled(Link)`
   border-bottom: 2px solid #f2f2f2;
 `;
 
-export const LibraryNavBar = ({ currentPath }) => {
+export const LibraryNavBar = ({ path }) => {
   return (
     <NavWrapper>
-      <NavBarLink to="/library/likes" currentPath={currentPath}>
+      <NavBarLink to="/library/likes" path={path}>
         Likes
       </NavBarLink>
-      <NavBarLink to="/library/myTrack" currentPath={currentPath}>
+      <NavBarLink to="/library/myTrack" path={path}>
         My track
       </NavBarLink>
       <Blank to="#"></Blank>

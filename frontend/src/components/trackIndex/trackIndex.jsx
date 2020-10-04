@@ -4,24 +4,27 @@ import { CenterWrapper } from "../wrapper/wrapper";
 import { TrackIndexRow } from "../trackIndexRow/trackIndexRow";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
-import { fetchLikesByUserId } from "../../redux/actions/likeAction";
+import {
+  fetchLikesByUserId,
+  fetchMostLiked,
+} from "../../redux/actions/likeAction";
 
-const mapStateToProps = ({ tracks, liked, currentUser: { userId } }) => ({
+const mapStateToProps = ({ tracks, currentUser: { userId } }) => ({
   tracks,
   userId,
-  liked,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTracks: () => dispatch(fetchAllTracks()),
   fetchLikesByUserId: (userId) => dispatch(fetchLikesByUserId(userId)),
+  fetchMostLiked: () => dispatch(fetchMostLiked()),
 });
 
 export const TrackIndex = ({
   tracks,
   fetchAllTracks,
   userId,
-  liked,
+  fetchMostLiked,
   fetchLikesByUserId,
 }) => {
   const [isLoading, setLoading] = useState(true);
@@ -29,12 +32,20 @@ export const TrackIndex = ({
   useEffect(() => {
     fetchAllTracks()
       .then(() => fetchLikesByUserId(userId))
+      .then(() => fetchMostLiked())
       .then(() => setLoading((pre) => !pre));
   }, []);
 
   if (isLoading) {
     return null;
   }
+
+  const trendyTracks = [];
+  Object.keys(tracks).forEach((e) => {
+    if (tracks[e].trendy) {
+      trendyTracks.push(tracks[e]);
+    }
+  });
 
   return (
     <CenterWrapper>
@@ -44,7 +55,7 @@ export const TrackIndex = ({
         subTitle={"Check out newest tracks on Sound.log!"}
       />
       <TrackIndexRow
-        tracks={tracks}
+        tracks={trendyTracks}
         title={"Sound.log: Trending"}
         subTitle={"Up-and-coming tracks on Sound.log"}
       />

@@ -61,7 +61,7 @@ export const Section = styled.div`
   flex: 1;
   flex-grow: 1;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 12px;
   justify-content: center;
   height: 100%;
   color: #ccc;

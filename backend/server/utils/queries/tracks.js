@@ -13,7 +13,7 @@ export const updateTrackById = (trackId, cols, files) => {
   });
 
   query.push(set.join(", "));
-  query.push(`WHERE id = '${trackId}'`);
+  query.push(`WHERE id = '${trackId}' RETURNING id as "trackId"`);
   let updateQuery = query.join(" ");
 
   return [updateQuery, values];

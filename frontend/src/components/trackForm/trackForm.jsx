@@ -73,7 +73,6 @@ export const TrackUploadForm = ({
     formData.append("genre", data.genre);
     formData.append("description", data.description);
     if (data.audio[0]) {
-      console.log(data.audio[0]);
       formData.append("audio", data.audio[0]);
     }
     if (data.image[0]) {

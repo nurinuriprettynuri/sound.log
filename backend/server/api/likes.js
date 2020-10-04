@@ -3,6 +3,22 @@ import pool from "../db/db";
 
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  try {
+    const likes = await pool.query(
+      `SELECT track FROM likes GROUP BY track ORDER BY COUNT(track) LIMIT 10`
+    );
+
+    const trendyTracks = likes.rows.map((e) => e.track);
+
+    res.json(trendyTracks);
+    res.status(200);
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+});
+
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
 

@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
 import { ConfirmForm } from "../confirmForm/confirmForm";
@@ -12,9 +13,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = ({ modal: { confirm } }) => {
+const mapStateToProps = ({ modal: { confirm } }, { history }) => {
   return {
     confirmModal: confirm,
+    history: history,
   };
 };
 
@@ -36,7 +38,7 @@ const ModalWrapper = styled.div`
   animation: animateTop 0.4s;
 `;
 
-export const Modal = ({ confirmModal, deleteTrack, closeModal }) => {
+export const Modal = ({ confirmModal, deleteTrack, closeModal, history }) => {
   if (!confirmModal) return null;
 
   return (
@@ -45,9 +47,9 @@ export const Modal = ({ confirmModal, deleteTrack, closeModal }) => {
         <ConfirmForm
           confirmMessage={"Delete this track?"}
           deleteTrack={() =>
-            deleteTrack(confirmModal).then(() =>
-              closeModal({ type: "confirm" })
-            )
+            deleteTrack(confirmModal)
+              .then(() => history.push("/tracks"))
+              .then(() => closeModal({ type: "confirm" }))
           }
           closeModal={closeModal}
         />
@@ -56,4 +58,4 @@ export const Modal = ({ confirmModal, deleteTrack, closeModal }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Modal));

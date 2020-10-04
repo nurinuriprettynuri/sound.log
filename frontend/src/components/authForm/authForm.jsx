@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Line } from "../trackIndexRow/trackIndexRow";
 import {
   BasicFormInput,
   TitleDiv,
+  TitleP,
   BasicInputLabel,
   BasicForm,
   BasicButton,
+  FormWarningSpan,
 } from "../designSystem/basicForm";
 import { withRouter } from "react-router-dom";
+import { authValidation, formText } from "../../util/authValidation";
 
 const PurpleAuthButton = styled(BasicButton)`
   background-color: #dabfde;
@@ -26,28 +29,6 @@ const AuthFormContainer = styled.div`
   width: 320px;
   height: ${(props) => (props.big ? `520px` : `460px`)};
   position: relative;
-`;
-
-const TitleP = styled.p`
-  color: #333;
-  font-size: 30px;
-  width: 100%;
-  margin: 0;
-  height: 100%;
-  text-align: center;
-`;
-
-const ErrorDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 100%;
-`;
-
-const ErrorP = styled.p`
-  font-size: 14px;
-  color: #ff0000;
 `;
 
 const FormDiv = styled.div`
@@ -71,24 +52,23 @@ const FormLine = styled(Line)`
 
 export const AuthModalForm = ({
   whichAuth,
-  err,
   handleSwitch,
   signin,
   registerUser,
   history,
   closeModal,
 }) => {
+  const [isValid, validate] = useState([true]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordconfirm, setpasswordconfirm] = useState("");
 
   useEffect(() => {
     setPassword("");
     setEmail("");
     setUsername("");
   }, [whichAuth]);
-
-  const submitRef = useRef();
 
   const handleMockLogin = () => {
     const mockEmail = "slowdive@gmail.com";
@@ -111,18 +91,25 @@ export const AuthModalForm = ({
     })();
   };
 
-  const submitAction = whichAuth === "signin" ? signin : registerUser;
-
-  let title = whichAuth === "signin" ? "Sign in" : "Create account";
-  let buttonText = "Continue";
-  let optionText =
-    whichAuth === "signin" ? "Join Sound.Log" : "Already have account";
-  let switchModal = whichAuth === "signin" ? "register" : "signin";
+  const { submitAction, title, buttonText, optionText, switchModal } = formText(
+    whichAuth,
+    signin,
+    registerUser
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = { email, username, password, passwordconfirm };
+    const result = authValidation(data, whichAuth);
 
-    submitAction({ email, username, password })
+    if (!result[0]) {
+      validate(result);
+      return;
+    } else {
+      console.log(password, email);
+      validate(result);
+    }
+    submitAction({ username, email, password })
       .then(() => history.push("/tracks"))
       .then(() => closeModal());
   };
@@ -132,9 +119,6 @@ export const AuthModalForm = ({
       <TitleDiv>
         <TitleP>{title}</TitleP>
       </TitleDiv>
-      <ErrorDiv>
-        <ErrorP>{err}</ErrorP>
-      </ErrorDiv>
       <FormDiv>
         <AuthForm onSubmit={handleSubmit}>
           {whichAuth !== "signin" && (
@@ -142,9 +126,13 @@ export const AuthModalForm = ({
               <BasicInputLabel>Username</BasicInputLabel>
               <BasicFormInput
                 name="username"
+                type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
+              {!isValid[0] && isValid[1].username && (
+                <FormWarningSpan>{isValid[1]["username"]}</FormWarningSpan>
+              )}
             </React.Fragment>
           )}
           <BasicInputLabel>Email</BasicInputLabel>
@@ -154,14 +142,33 @@ export const AuthModalForm = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {!isValid[0] && isValid[1]["email"] && (
+            <FormWarningSpan>{isValid[1].email}</FormWarningSpan>
+          )}
           <BasicInputLabel>Password</BasicInputLabel>
           <BasicFormInput
-            type="button"
             name="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {!isValid[0] && isValid[1]["password"] && (
+            <FormWarningSpan>{isValid[1].password}</FormWarningSpan>
+          )}
+          {whichAuth !== "signin" && (
+            <React.Fragment>
+              <BasicInputLabel>Password Confirm</BasicInputLabel>
+              <BasicFormInput
+                name="passwordconfirm"
+                type="password"
+                value={passwordconfirm}
+                onChange={(e) => setpasswordconfirm(e.target.value)}
+              />
+              {!isValid[0] && isValid[1].passwordconfirm && (
+                <FormWarningSpan>{isValid[1].passwordconfirm}</FormWarningSpan>
+              )}
+            </React.Fragment>
+          )}
           <br />
           <AuthButton type="submit">{buttonText}</AuthButton>
           <PurpleAuthButton

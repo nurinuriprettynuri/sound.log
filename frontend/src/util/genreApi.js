@@ -1,7 +1,5 @@
 import axios from "axios";
 
-export const fetchAllGenres = () =>
-  axios.get("http://localhost:8000/api/genres");
+export const fetchAllGenres = () => axios.get("/api/genres");
 
-export const fetchGenre = (id) =>
-  axios.get(`http://localhost:8000/api/genres/${id}`);
+export const fetchGenre = (id) => axios.get(`/api/genres/${id}`);

@@ -1,29 +1,39 @@
 import React, { useEffect, useState } from "react";
-
+import { withRouter } from "react-router-dom";
 import { CenterWrapper, RowkWrapper } from "../wrapper/wrapper";
 import { LibraryNavBar } from "./libaryNavBar";
 import { TrackItem } from "../trackItem/trackItem";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
 
+import { fetchLikesByUserId } from "../../redux/actions/likeAction";
+
 const mapStateToProps = ({ tracks, currentUser }, ownProps) => {
-  console.log(ownProps);
   return {
     tracks,
     currentUser,
-    currentPath: ownProps.location.pathname,
+    path: ownProps.location.pathname,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTracks: () => dispatch(fetchAllTracks()),
+  fetchLikesByUserId: (userId) => dispatch(fetchLikesByUserId(userId)),
 });
 
-const Library = ({ tracks, fetchAllTracks, currentUser, currentPath }) => {
+const Library = ({
+  tracks,
+  fetchAllTracks,
+  fetchLikesByUserId,
+  currentUser,
+  path,
+}) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAllTracks().then(() => setLoading((pre) => !pre));
+    fetchAllTracks()
+      .then(() => fetchLikesByUserId(currentUser.userId))
+      .then(() => setLoading((pre) => !pre));
   }, []);
 
   if (isLoading) {
@@ -31,15 +41,14 @@ const Library = ({ tracks, fetchAllTracks, currentUser, currentPath }) => {
   }
 
   const likedTracks = Object.keys(tracks).filter(
-    (trackId) => tracks[trackId].likedByUser === currentUser.userId
+    (trackId) => tracks[trackId].liked
   );
 
   const myTracks = Object.keys(tracks).filter(
     (trackId) => tracks[trackId].artistId === currentUser.userId
   );
 
-  const currentTracks =
-    currentPath === "/library/likes" ? likedTracks : myTracks;
+  const currentTracks = path === "/library/likes" ? likedTracks : myTracks;
 
   const mapped = currentTracks.map((trackId) => (
     <TrackItem track={tracks[trackId]} />
@@ -47,7 +56,7 @@ const Library = ({ tracks, fetchAllTracks, currentUser, currentPath }) => {
 
   return (
     <CenterWrapper>
-      <LibraryNavBar currentPath={currentPath} />
+      <LibraryNavBar path={path} />
       {!currentTracks.length && (
         <React.Fragment>
           <RowkWrapper />
@@ -58,4 +67,6 @@ const Library = ({ tracks, fetchAllTracks, currentUser, currentPath }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Library);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Library)
+);

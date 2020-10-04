@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const tracks = await pool.query(
-      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", u.id as "artistId", u.username as username, u.location as location FROM tracks as t INNER JOIN users as u ON t.artist = u.id ORDER BY t.created_at DESC`
+      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location FROM tracks as t INNER JOIN users as u ON t.artist = u.id ORDER BY t.created_at DESC`
     );
     res.json(tracks.rows);
   } catch (err) {
@@ -28,9 +28,10 @@ router.get("/:trackId", async (req, res) => {
 
   try {
     const track = await pool.query(
-      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", u.id as "artistId", u.username as username, u.location as location FROM tracks as t INNER JOIN users as u ON t.artist = u.id WHERE t.id = $1`,
+      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location FROM tracks as t INNER JOIN users as u ON t.artist = u.id WHERE t.id = $1`,
       [trackId]
     );
+
     res.json(track.rows[0]);
   } catch (err) {
     console.log(err);
@@ -45,11 +46,12 @@ router.delete("/:trackId", async (req, res) => {
   const { trackId } = req.params;
 
   try {
-    const deleted = await pool.query("DELETE FROM tracks WHERE id=$1", [
-      trackId,
-    ]);
+    const deleted = await pool.query(
+      `DELETE FROM tracks WHERE id=$1 RETURNING id as "trackId"`,
+      [trackId]
+    );
 
-    res.json(trackId);
+    res.json(deleted.rows[0].trackId);
   } catch (err) {
     res.status(500).send("server error");
   }
@@ -62,9 +64,13 @@ router.patch("/:trackId", trackUpload, async (req, res) => {
   const { trackId } = req.params;
   const [updateQuery, values] = updateTrackById(trackId, req.body, req.files);
 
-  console.log(updateQuery, values);
   try {
-    const track = await pool.query(updateQuery, values);
+    const updatedTrack = await pool.query(updateQuery, values);
+    const track = await pool.query(
+      "SELECT tracks.*, users.* FROM tracks INNER JOIN users ON users.id = tracks.artist WHERE tracks.id=$1",
+      [updatedTrack.rows[0].trackId]
+    );
+
     res.json(track.rows[0]);
   } catch (err) {
     console.log(err);
@@ -72,7 +78,10 @@ router.patch("/:trackId", trackUpload, async (req, res) => {
   }
 });
 
-//create a track data using multer and multer-s3
+/**
+ *create a track data using multer and multer-s3
+ */
+
 router.post("/", trackUpload, async function (req, res) {
   const { title, genre, artist, description } = req.body;
   const image = req.files.filter((e) => e.fieldname === "image");
@@ -88,6 +97,7 @@ router.post("/", trackUpload, async function (req, res) {
       "SELECT tracks.*, users.* FROM tracks INNER JOIN users ON users.id = tracks.artist WHERE users.id = $1",
       [artist]
     );
+
     res.json(track.rows[0]);
   } catch (err) {
     console.error(err.message);

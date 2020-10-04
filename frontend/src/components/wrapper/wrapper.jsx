@@ -25,6 +25,7 @@ export const CenterWrapper = styled.div`
   width: 90%;
   max-width: 1240px;
   min-width: 900px;
+  min-height: 600px;
   background-color: #fff;
 `;
 

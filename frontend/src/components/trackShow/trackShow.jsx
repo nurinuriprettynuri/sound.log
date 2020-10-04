@@ -97,10 +97,10 @@ export const TrackShow = ({
   }
 
   const mapped = Object.keys(comments).map((key) => (
-    <Comment username={comments[key].userId} content={comments[key].body} />
+    <Comment username={comments[key].username} content={comments[key].body} />
   ));
 
-  return (
+  return (  
     <CenterWrapper>
       <TrackShowTopWrapper img={show_bg}>
         <TopLeftDiv>
