@@ -12,6 +12,8 @@ import { TrackItem } from "../trackItem/trackItem";
 import SignInButton from "../authModalButton/authModalButton";
 import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
+import { openModal } from "../../redux/actions/modalAction";
+import { setCurrentTrack } from "../../redux/actions/playbarAction";
 import styled from "styled-components";
 import { MainLogo } from "../designSystem/logo";
 import main from "../../images/sp.gif";
@@ -22,6 +24,7 @@ const mapStateToProps = ({ tracks }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTracks: () => dispatch(fetchAllTracks()),
+  openModal: () => dispatch(openModal({ type: "auth", data: "signin" })),
 });
 
 export const SplashButtonwrapper = styled.div`
@@ -59,19 +62,22 @@ const SplashTitle = styled.p`
   color: #fff;
   margin-top: 0;
   margin-bottom: 20px;
-  font-size: 28px;
-  font-family: "Roboto", sans-serif;
+  font-size: 30px;
 
-  background: -webkit-linear-gradient(#fff, #ffbae6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: "Reenie Beanie", cursive;
+  cursor: pointer;
+  &:hover {
+    color: #dc4e76;
+  }
 `;
 
-const Splash = ({ fetchAllTracks, tracks }) => {
+const Splash = ({ fetchAllTracks, tracks, openModal }) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAllTracks().then(() => setLoading(false));
+    fetchAllTracks()
+      .then(() => setCurrentTrack(tracks[Object.keys(tracks)[0]]))
+      .then(() => setLoading(false));
   }, []);
 
   if (isLoading) {
@@ -87,9 +93,11 @@ const Splash = ({ fetchAllTracks, tracks }) => {
       <SplashWrapper>
         <SplashImage>
           <SplashButtonwrapper>
-            <MainLogo big={true} />
+            <MainLogo big={true} handleClick={openModal} />
           </SplashButtonwrapper>
-          <SplashTitle>Sound.log("So much music, so little time");</SplashTitle>
+          <SplashTitle onClick={openModal}>
+            Sound.log("So much music, so little time");
+          </SplashTitle>
           <TempDiv src={main} />
           <SplashButtonwrapper>
             <ButtonWrapper>

@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const tracks = await pool.query(
-      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location FROM tracks as t INNER JOIN users as u ON t.artist = u.id ORDER BY t.created_at DESC`
+      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location, u.avatar as avatar FROM tracks as t INNER JOIN users as u ON t.artist = u.id ORDER BY t.created_at DESC`
     );
     res.json(tracks.rows);
   } catch (err) {
@@ -28,7 +28,7 @@ router.get("/:trackId", async (req, res) => {
 
   try {
     const track = await pool.query(
-      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location FROM tracks as t INNER JOIN users as u ON t.artist = u.id WHERE t.id = $1`,
+      `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location, u.avatar as avatar FROM tracks as t INNER JOIN users as u ON t.artist = u.id WHERE t.id = $1`,
       [trackId]
     );
 

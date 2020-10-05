@@ -13,7 +13,7 @@ export const updateUserById = (userId, cols, files) => {
   });
 
   query.push(set.join(", "));
-  query.push(`WHERE id = '${userId}'`);
+  query.push(`WHERE id = '${userId}' RETURNING id as "userId"`);
   const updateQuery = query.join(" ");
   return [updateQuery, values];
 };

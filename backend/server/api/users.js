@@ -16,7 +16,10 @@ const userUpload = upload.any();
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
-    const user = await pool.query("SELECT * FROM users WHERE id=$1", [userId]);
+    const user = await pool.query(
+      `SELECT id as "userId", username, location, email, password, avatar FROM users WHERE id=$1`,
+      [userId]
+    );
     return res.json(user.rows[0]);
   } catch (err) {
     console.log(err);
@@ -29,7 +32,7 @@ router.get("/:userId", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   const { username, email, password } = req.body;
-  console.log(username, email);
+
   try {
     const user = await pool.query("SELECT * FROM users WHERE email = $1", [
       email,
@@ -38,16 +41,15 @@ router.post("/", async (req, res) => {
     if (user.rows.length > 0) {
       return res.status(401).json("User already exist!");
     }
-    console.log(password);
+
     const salt = await bcrypt.genSalt(10);
     const bcryptPassword = await bcrypt.hash(password, salt);
-    console.log(bcryptPassword);
+
     const newUser = await pool.query(
-      `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id as "userId", username, password`,
+      `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id as "userId", username, password, avatar`,
       [username, email, bcryptPassword]
     );
 
-    console.log(newUser);
     const jwtToken = jwtGenerator(newUser.rows[0].id);
 
     return res.json({ jwtToken, ...newUser.rows[0] });
@@ -64,10 +66,9 @@ router.post("/signin", async (req, res) => {
 
   try {
     const user = await pool.query(
-      `SELECT id as "userId", username, location, email, password FROM users WHERE email = $1`,
+      `SELECT id as "userId", username, location, email, password, avatar FROM users WHERE email = $1`,
       [email]
     );
-    console.log(user);
 
     //email validation
     if (user.rows.length === 0) {
@@ -76,8 +77,8 @@ router.post("/signin", async (req, res) => {
 
     //compare incoming password with hashed password
     const validPassword = await bcrypt.compare(password, user.rows[0].password);
+
     //password validation
-    console.log(validPassword);
     if (!validPassword) {
       return res.status(401).json("Invalid user information");
     }
@@ -95,10 +96,16 @@ router.post("/signin", async (req, res) => {
 router.patch("/:userId", userUpload, async (req, res) => {
   const { userId } = req.params;
   let [updateQuery, values] = updateUserById(userId, req.body, req.files);
+  console.log(req.files);
   console.log(updateQuery);
 
   try {
-    const user = await pool.query(updateQuery, values);
+    const updatedUser = await pool.query(updateQuery, values);
+    const user = await pool.query(
+      `SELECT id as "userId", username, location, email, password, avatar FROM users WHERE id=$1`,
+      [updatedUser.rows[0].userId]
+    );
+
     res.json(user.rows[0]);
   } catch (err) {
     console.log(err);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { RowSection, ColSection, CenterWrapper } from "../wrapper/wrapper";
+import { RowSection, CenterWrapper } from "../wrapper/wrapper";
 import {
   TitleP,
   WideForm,
@@ -60,7 +60,7 @@ export const ProfileEditForm = ({
     formData.append("location", data.location);
     formData.append("bio", data.bio);
     data.password && formData.append("password", data.password);
-    data.image && formData.append("avatar", data.image[0]);
+    data.avatar && formData.append("avatar", data.avatar[0]);
 
     updateUser(formData, currentUser.userId).then((res) =>
       history.push(`/you`)

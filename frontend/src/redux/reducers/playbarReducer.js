@@ -1,4 +1,4 @@
-import { PLAY, PAUSE } from "../actions/playbarAction";
+import { PLAY, PAUSE, SET_CURRENT_TRACK } from "../actions/playbarAction";
 import merge from "lodash/merge";
 
 const defaultState = {
@@ -15,10 +15,15 @@ export const playbarReducer = (state = defaultState, action) => {
       return merge({}, state, {
         currentTrack: action.track,
         isPlaying: true,
+        currentTime: action.track,
       });
 
     case PAUSE:
       return merge({}, state, { isPlaying: false });
+    case SET_CURRENT_TRACK:
+      return merge({}, state, {
+        currentTrack: action.track,
+      });
     default:
       return state;
   }

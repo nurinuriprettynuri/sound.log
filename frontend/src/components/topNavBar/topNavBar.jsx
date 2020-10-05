@@ -23,15 +23,17 @@ const mapStateToProps = ({ currentUser }) => ({
 
 const NavBarLink = styled(Link)`
   text-decoration: none;
+  height: 100%;
   color: #ccc;
   &:hover: {
-    color: #fff;
+    color: "#fff";
   }
 `;
 
 export const RightSection = materialStyled(Button)({
   height: "100%",
   display: "flex",
+  boxSizing: "border-box",
   alignItems: "center",
   minWidth: "50px",
   fontSize: "14px",
@@ -48,6 +50,7 @@ const LeftSectionButton = materialStyled(Button)({
   height: "100%",
   textTransform: "none",
   borderRadius: 0,
+  boxSizing: "border-box",
   borderRight: "1px solid #111",
   width: "100px",
   color: "#ccc",
@@ -61,13 +64,12 @@ export const Section = styled.div`
   flex: 1;
   flex-grow: 1;
   align-items: center;
-  margin-right: 12px;
   justify-content: center;
   height: 100%;
   color: #ccc;
   cursor: pointer;
   &:hover {
-    color: #fff;
+    color: "#fff";
   }
 `;
 
@@ -76,18 +78,27 @@ export const TopNavBar = ({ currentUser }) => {
     <NavBar top>
       <SideNavWrapper />
       <MiddleNavWrapper>
-        <LeftSectionButton>
-          <NavBarLink to="/">{mainOrangeLogo}</NavBarLink>
-        </LeftSectionButton>
-        <LeftSectionButton>
-          <NavBarLink to="/tracks">Home</NavBarLink>
-        </LeftSectionButton>
-        <LeftSectionButton>
-          <NavBarLink to="/library/likes">Library</NavBarLink>
-        </LeftSectionButton>
+        <NavBarLink to="/">{mainOrangeLogo}</NavBarLink>
+
+        <NavBarLink to="/tracks">
+          <LeftSectionButton>Home</LeftSectionButton>
+        </NavBarLink>
+
+        <NavBarLink to="/library/likes">
+          <LeftSectionButton>Library</LeftSectionButton>
+        </NavBarLink>
+
         <Section>
           <Autocomplete />
         </Section>
+        <a
+          href="https://github.com/nurinuriprettynuri/sound.log"
+          target="_blank"
+        >
+          <RightSection>
+            <GitHubIcon />
+          </RightSection>
+        </a>
         {!currentUser ? (
           <React.Fragment>
             <ButtonWrapper>
@@ -99,21 +110,19 @@ export const TopNavBar = ({ currentUser }) => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <RightSection>
-              <NavBarLink to="/">
-                <GitHubIcon />
-              </NavBarLink>
-            </RightSection>
-            <RightSection>
-              <AccountCircleIcon />
-              &nbsp;
-              <NavBarLink to="/you">{currentUser.username}</NavBarLink>
-            </RightSection>
+            <NavBarLink to="/upload">
+              <RightSection>Upload</RightSection>
+            </NavBarLink>
+            <NavBarLink to="/you">
+              <RightSection>
+                <AccountCircleIcon />
+                &nbsp;
+                {currentUser.username}
+              </RightSection>
+            </NavBarLink>
           </React.Fragment>
         )}
-        <RightSection>
-          <NavBarLink to="/upload">Upload</NavBarLink>
-        </RightSection>
+
         <ToggleMenu />
       </MiddleNavWrapper>
       <SideNavWrapper />

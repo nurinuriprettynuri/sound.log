@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Line } from "../trackIndexRow/trackIndexRow";
 import {
@@ -12,6 +12,7 @@ import {
 } from "../designSystem/basicForm";
 import { withRouter } from "react-router-dom";
 import { authValidation, formText } from "../../util/authValidation";
+import { asyncInterval } from "../../util/asyncInterval";
 
 const PurpleAuthButton = styled(BasicButton)`
   background-color: #dabfde;
@@ -72,24 +73,32 @@ export const AuthModalForm = ({
   }, [whichAuth]);
 
   const handleMockLogin = () => {
-    const mockEmail = "slowdive@gmail.com";
     const mockPassword = "password";
+    const mockEmail = "testing@gmail.com";
     let i = 0;
-    (function () {
-      let emailRef = setInterval(() => {
-        setEmail((pre) => pre + mockEmail[i]);
-        i++;
-        if (i === mockEmail.length) clearInterval(emailRef);
-      }, 100);
-    })();
-    (function () {
-      let j = 0;
-      let passwordRef = setInterval(() => {
-        setPassword((pre) => pre + mockPassword[j]);
+    let j = 0;
+
+    asyncInterval(
+      () => {
+        setEmail((pre) => pre + mockEmail[j]);
         j++;
-        if (j === mockPassword.length) clearInterval(passwordRef);
-      }, 100);
-    })();
+        return j === mockEmail.length;
+      },
+      100,
+      mockEmail.length
+    )
+      .then(() =>
+        asyncInterval(
+          () => {
+            setPassword((pre) => pre + mockPassword[i]);
+            i++;
+            return i === mockPassword.length;
+          },
+          100,
+          mockPassword.length
+        )
+      )
+      .then(() => inputRef.current.click());
   };
 
   const { submitAction, title, buttonText, optionText, switchModal } = formText(
@@ -107,13 +116,13 @@ export const AuthModalForm = ({
       validate(result);
       return;
     } else {
-      console.log(password, email);
       validate(result);
     }
     submitAction({ username, email, password })
       .then(() => history.push("/tracks"))
       .then(() => closeModal());
   };
+  const inputRef = React.useRef(null);
 
   return (
     <AuthFormContainer big={whichAuth !== "signin"}>
@@ -171,13 +180,14 @@ export const AuthModalForm = ({
             </React.Fragment>
           )}
           <br />
-          <AuthButton type="submit">{buttonText}</AuthButton>
+          <AuthButton type="submit" ref={inputRef}>
+            {buttonText}
+          </AuthButton>
           <PurpleAuthButton
             type="button"
             onClick={() => {
-              handleSwitch({ type: "auth", data: switchModal }).then(() =>
-                handleMockLogin()
-              );
+              handleSwitch({ type: "auth", data: "signin" });
+              handleMockLogin();
             }}
           >
             Sign in with mock account

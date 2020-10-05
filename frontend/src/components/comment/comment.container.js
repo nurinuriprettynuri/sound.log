@@ -4,7 +4,7 @@ import { createComment } from "../../redux/actions/commentAction";
 import { CommentForm } from "./commentForm";
 
 const mapStateToProps = (
-  { currentUser: { userId } },
+  { currentUser: { userId, avatar } },
   {
     match: {
       params: { trackId },
@@ -14,6 +14,7 @@ const mapStateToProps = (
   return {
     userId,
     trackId,
+    avatar,
   };
 };
 

@@ -39,6 +39,10 @@ const LinkButton = styled(Link)`
   bottom: 2%;
 `;
 
+const ProfileCol = styled(ColSection)`
+  padding: 0 20px;
+`;
+
 export const UserProfile = ({ fetchUser, currentUser }) => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
@@ -58,7 +62,7 @@ export const UserProfile = ({ fetchUser, currentUser }) => {
     <CenterWrapper>
       <ProfileTopWrapper img={show_bg}>
         <ProfileImage img={currentUser.avatar || selfie} />
-        <ColSection>{mapped}</ColSection>
+        <ProfileCol>{mapped}</ProfileCol>
         <LinkButton to="/you/edit">
           <EditIcon />
         </LinkButton>

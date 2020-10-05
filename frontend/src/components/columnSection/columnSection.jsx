@@ -4,7 +4,7 @@ import { GreyH6 } from "../text/text";
 import styled from "styled-components";
 
 const SectionTitleDiv = styled(BottomBorderDiv)`
-  width: 300px;
+  width: 100%;
   height: 30px;
 `;
 

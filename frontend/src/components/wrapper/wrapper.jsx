@@ -98,7 +98,6 @@ export const CommentShowDiv = styled.div`
   flex-direction: row;
   align-items: center;
   height: 60px;
-  width: 100%;
   margin: 0;
   box-sizing: border-box;
 `;
@@ -107,13 +106,14 @@ export const ProfileImage = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: #d6cee2;
   background-image: url(${(props) => props.img});
   background-size: cover;
   background-repeat: no-repeat;
   ${(props) =>
     props.small &&
     css`
+      background-color: #fdd5e0;
       width: 40px;
       height: 40px;
     `}
@@ -123,6 +123,9 @@ export const ColSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  flex: 1;
 `;
 
 export const RowSection = styled.div`
@@ -133,6 +136,7 @@ export const RowSection = styled.div`
 
 export const VerticalLine = styled.div`
   border-left: 2px solid #f2f2f2;
+  margin: 0 20px;
 `;
 
 export const BottomBorderDiv = styled.div`

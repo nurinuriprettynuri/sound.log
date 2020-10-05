@@ -23,12 +23,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 const LikeButtonDiv = styled(TrackItemButtonDiv)`
   right: 0;
-  bottom: 0;
+  bottom: 15%;
   z-index: 9;
 `;
 
 const LikeButton = ({ likeTrack, trackId, userId, liked, unlikeTrack }) => {
+  if (!userId) return null;
   const action = liked ? unlikeTrack : likeTrack;
+
   return (
     <LikeButtonDiv>
       <FavoriteIcon

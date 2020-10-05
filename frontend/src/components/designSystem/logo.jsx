@@ -24,9 +24,13 @@ const TransparentLogoDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: ${(props) => (props.big ? "35px" : "30px")};
+  font-size: ${(props) => (props.big ? "32px" : "30px")};
   padding: 0 5px;
   box-sizing: border-box;
+  cursor: pointer;
+  &:hover {
+    color: #dc4e76;
+  }
 `;
 
 export const mainOrangeLogo = (
@@ -36,9 +40,9 @@ export const mainOrangeLogo = (
   </OrangeLogoDiv>
 );
 
-export const MainLogo = () => (
-  <TransparentLogoDiv big>
-    <HeadsetIcon style={{ fontSize: 35 }} />
+export const MainLogo = ({ handleClick }) => (
+  <TransparentLogoDiv big onClick={handleClick}>
+    <HeadsetIcon style={{ fontSize: 30 }} />
     {".log()"}
   </TransparentLogoDiv>
 );

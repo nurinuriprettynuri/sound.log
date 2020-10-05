@@ -21,9 +21,10 @@ const PlayButtonWrapper = styled.div`
   ${(props) =>
     props.small &&
     css`
+      z-index: 10;
       margin: 0;
       position: absolute;
-      top: 38%;
+      top: 32%;
       left: 33.3%;
     `}
 `;

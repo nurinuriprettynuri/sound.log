@@ -12,7 +12,7 @@ export const TrackImage = styled.div`
   ${(props) =>
     props.small &&
     css`
-      position: relative;
+      ${"" /* position: relative; */}
       width: 180px;
       height: 180px;
     `}

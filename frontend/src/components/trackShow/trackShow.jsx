@@ -4,7 +4,6 @@ import {
   ButtomWrapper,
   ColSection,
   VerticalLine,
-  BottomBorderDiv,
 } from "../wrapper/wrapper";
 import show_bg from "../../images/show_background.jpg";
 import { TrackImage } from "../trackImage/trackImage";
@@ -19,16 +18,6 @@ import { ColumnSection } from "../columnSection/columnSection";
 import EditIcon from "@material-ui/icons/Edit";
 import { Link } from "react-router-dom";
 
-const mocks = [
-  { username: "nuri joen", content: "it was really awesome!" },
-  { username: "lamlam lam", content: "i don't like bingrae" },
-  { username: "justin rae g", content: "bing is my life cute rae" },
-];
-
-const mapped = mocks.map(({ username, content }) => (
-  <Comment username={username} content={content} />
-));
-
 const TopLeftDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -37,24 +26,26 @@ const TopLeftDiv = styled.div`
 `;
 
 const BottomLeftSection = styled(ColSection)`
-  width: 60%;
   min-width: 400px;
+  width: 65%;
   justify-content: flex-start;
   box-sizing: border-box;
+  flex: 1;
+  flex-wrap: wrap;
 `;
 
 const BottomRightSection = styled(ColSection)`
   box-sizing: border-box;
+  max-width: 500px;
+  flex: 0.6;
+  flex-wrap: wrap;
 `;
 
 const BottomRowSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-`;
-
-const CommentSection = styled(ColSection)`
-  margin-left: 40px;
+  justify-content: space-between;
 `;
 
 const TrackShowTopWrapper = styled.div`
@@ -74,8 +65,6 @@ const IconWrapper = styled.div`
   left: 2.5%;
   bottom: 3%;
 `;
-
-const RelatedTrackSection = styled(ColSection)``;
 
 export const TrackShow = ({
   fetchTrack,
@@ -97,10 +86,14 @@ export const TrackShow = ({
   }
 
   const mapped = Object.keys(comments).map((key) => (
-    <Comment username={comments[key].username} content={comments[key].body} />
+    <Comment
+      username={comments[key].username}
+      avatar={comments[key].avatar}
+      content={comments[key].body}
+    />
   ));
 
-  return (  
+  return (
     <CenterWrapper>
       <TrackShowTopWrapper img={show_bg}>
         <TopLeftDiv>
@@ -124,10 +117,7 @@ export const TrackShow = ({
           <CommentForm />
           <BottomRowSection left={true}>
             <MiniProfile artist={track} />
-            <CommentSection>
-              <BottomBorderDiv>Comments</BottomBorderDiv>
-              {mapped}
-            </CommentSection>
+            <ColumnSection title={"Comments"}>{mapped}</ColumnSection>
           </BottomRowSection>
         </BottomLeftSection>
         <VerticalLine />

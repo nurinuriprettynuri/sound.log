@@ -15,18 +15,23 @@ const TrackItemDiv = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 15px;
+  position: relative;
+`;
+
+const ImageLink = styled.link`
+  height: 100%;
+  width: 100%;
 `;
 
 export const TrackItem = ({ track }) => {
   return (
     <TrackItemDiv>
       <Link to={`/tracks/${track.trackId}`}>
-        <TrackImage small img={track.imageUrl}>
-          <OrangePlayButton small={true} track={track} />
-          <DeleteButton track={track} />
-          <LikeButton liked={track.liked} trackId={track.trackId} />
-        </TrackImage>
+        <TrackImage small img={track.imageUrl} />
       </Link>
+      <OrangePlayButton small={true} track={track} />
+      <DeleteButton track={track} />
+      <LikeButton liked={track.liked} trackId={track.trackId} />
       <TextContainer>
         <ItemTitle>{track.title}</ItemTitle>
         <GreyH6>{track.username}</GreyH6>

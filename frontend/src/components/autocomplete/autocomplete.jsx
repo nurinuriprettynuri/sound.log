@@ -11,16 +11,19 @@ const mapStateToProps = ({ tracks }, { big, history }) => ({
   history,
 });
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    width: "100%",
-    fontSize: "14px",
-    borderRadius: "3px",
-    marginBottom: 0,
-    // padding: "0 10px",
-    boxSizing: "border-box",
+const useStyles = makeStyles({
+  option: {
+    fontSize: 14,
+    "& > span": {
+      marginRight: 10,
+      fontSize: 18,
+    },
   },
-}));
+  inputRoot: {
+    backgroundColor: "blue",
+    border: "none",
+  },
+});
 
 const AutocompleteWrapper = styled.div`
   padding: 0 10px;
@@ -31,12 +34,20 @@ const AutoCompleteInput = styled.input`
   width: 100%;
   box-sizing: border-box;
   min-width: 200px;
+
   padding: 0 10px;
   height: ${(props) => (props.big ? `45px` : "28px")};
 `;
 
 const AutoCompleteOptionDiv = styled.div`
   width: 100%;
+  & input {
+    font-size: 14px;
+    border: 0;
+    border-radius: 3px;
+    outline: 0;
+    place-holder: "Search music";
+  }
 `;
 
 export const AutoComplete = function CustomInputAutocomplete({
@@ -52,7 +63,6 @@ export const AutoComplete = function CustomInputAutocomplete({
         classes={classes}
         id="custom-input-demo"
         onChange={(event, value) => history.push(`/tracks/${value.trackId}`)}
-        // onChange={(event, value) => console.log(value)}
         options={options}
         getOptionLabel={(option) => option.title}
         renderInput={(params) => (

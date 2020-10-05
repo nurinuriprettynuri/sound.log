@@ -27,9 +27,10 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     paddingTop: 0,
+
     paddingButtom: 0,
     borderRadius: 0,
-    color: "#333",
+    color: "#999",
   },
   menuList: {
     padding: 0,
