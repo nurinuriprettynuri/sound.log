@@ -8,7 +8,7 @@
     "build-babel": "babel -d ./build ./server -s",
     "build": "yarn run clean && yarn run build-babel",
     "heroku-postbuild": "cd frontend && yarn install && yarn run build",
-    "start": "node ./build/server/bin/www"
+    "start": "node /build/server/bin/www"
   },
   "engines": {
     "node": "12.8.0",
