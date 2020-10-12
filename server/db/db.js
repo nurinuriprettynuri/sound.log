@@ -1,12 +1,8 @@
 import { Pool } from "pg";
-
+import KEYS from "../../config/keys";
 
 var pool = new Pool({
-  user: "postgres",
-  password: "postgres",
-  host: "localhost",
-  port: 5432,
-  database: "sound_log",
+  connectionString: KEYS.DATABASE_URL,
 });
 
 export default pool;

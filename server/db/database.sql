@@ -66,10 +66,6 @@ INSERT INTO genres (type) VALUES ('Instrumental');
 
 INSERT INTO users (email, username, password) VALUES ('slowdive@gmail.com', 'slowdive', '123456789', 'Reading, UK');
 
-SELECT t.id as "trackId", t.title as "title", t.track_file as "audioUrl", t.image as "imageUrl", u.id as "userId", u.username as "username", u.location as "location", l.liked_by as "likedByUser" FROM tracks as t LEFT JOIN likes as l ON t.id = l.track INNER JOIN users as u ON t.artist = u.id
-SELECT t.id as "trackId", t.title as "title", t.track_file as "audioUrl", t.image as "imageUrl", u.id as "userId", u.username as "username", u.location as "location", l.liked_by as "likedByUser" FROM tracks as t LEFT JOIN likes as l ON t.id = l.track INNER JOIN users as u ON t.artist = u.id WHERE l.liked_by = '4745af93-761a-4ca0-b015-04c5820f36ca'; 
-
-
 DROP TABLE genres;
 DROP TABLE comments;
 DROP TABLE likes;

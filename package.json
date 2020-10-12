@@ -4,7 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --exec babel-node ./server/bin/www",
-    "build": "babel ./server --out-dir dist-server"
+    "build": "babel ./server --out-dir dist-server",
+    "heroku-postbuild": "cd client && yarn install && yarn run build"
+  },
+  "engines": {
+    "node": "12.8.0",
+    "yarn": "1.17.3",
+    "npm": "6.10.3"
   },
   "dependencies": {
     "aws-sdk": "^2.756.0",
