@@ -11,5 +11,8 @@ export const fetchUser = () =>
 
 export const updateUser = (user, userId) =>
   axios.patch(`/api/users/${userId}`, user, {
-    headers: { authorization: "Bearer " + localStorage.getItem("jwtToken") },
+    headers: {
+      "Content-Type": "multipart/form-data",
+      authorization: "Bearer " + localStorage.getItem("jwtToken"),
+    },
   });
