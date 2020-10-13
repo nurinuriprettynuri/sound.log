@@ -41,6 +41,7 @@ export const updateUser = (user) => (dispatch) =>
   APIUtil.updateUser(user).then((res) => dispatch(setCurrentUser(res.data)));
 
 export const signout = () => (dispatch) => {
+  localStorage.removeItem("jwtToken");
   APIUtil.authToken(false);
   dispatch(signoutCurrentUser());
 };
