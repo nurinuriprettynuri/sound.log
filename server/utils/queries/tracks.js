@@ -11,10 +11,10 @@ export const updateTrackById = (trackId, cols, files) => {
   files.forEach((file) => {
     set.push(`${file.fieldname} = '${file.location}'`);
   });
-
   query.push(set.join(", "));
   query.push(`WHERE id = '${trackId}' RETURNING id as "trackId"`);
   let updateQuery = query.join(" ");
+  console.log(updateQuery);
 
   return [updateQuery, values];
 };
