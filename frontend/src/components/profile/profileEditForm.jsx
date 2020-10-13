@@ -58,8 +58,12 @@ export const ProfileEditForm = ({
     formData.append("username", data.username);
     formData.append("location", data.location);
     formData.append("bio", data.bio);
-    data.password && formData.append("password", data.password);
-    data.avatar[0] && formData.append("avatar", data.avatar[0]);
+    if (data.password) {
+      formData.append("password", data.password);
+    }
+    if (data.avatar[0]) {
+      formData.append("avatar", data.avatar[0]);
+    }
 
     updateUser(formData).then((res) => history.push(`/you`));
   };
