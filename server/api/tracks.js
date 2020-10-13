@@ -42,7 +42,7 @@ router.get("/:trackId", async (req, res) => {
 /**
  * delete a track by trackId
  */
-router.delete("/:trackId", authorization, async (req, res) => {
+router.delete("/:trackId", async (req, res) => {
   const { trackId } = req.params;
 
   try {
@@ -60,7 +60,7 @@ router.delete("/:trackId", authorization, async (req, res) => {
 /**
  * patch(update) a track data by trackId
  */
-router.patch("/:trackId", authorization, trackUpload, async (req, res) => {
+router.patch("/:trackId", trackUpload, async (req, res) => {
   const { trackId } = req.params;
   const { userId } = req;
 
@@ -84,7 +84,7 @@ router.patch("/:trackId", authorization, trackUpload, async (req, res) => {
  *create a track data using multer and multer-s3
  */
 
-router.post("/", authorization, trackUpload, async function (req, res) {
+router.post("/", trackUpload, async function (req, res) {
   const { title, genre, artist, description } = req.body;
   const image = req.files.filter((e) => e.fieldname === "image");
   const audio = req.files.filter((e) => e.fieldname === "audio");

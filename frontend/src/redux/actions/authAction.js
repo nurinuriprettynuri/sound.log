@@ -22,7 +22,6 @@ export const register = (user) => (dispatch) =>
   APIUtil.register(user).then((res) => {
     const { jwtToken, user } = res.data;
     localStorage.setItem("jwtToken", jwtToken);
-    APIUtil.authToken(jwtToken);
     dispatch(setCurrentUser(user));
   });
 
@@ -30,7 +29,6 @@ export const signin = (user) => (dispatch) =>
   APIUtil.signin(user).then((res) => {
     const { jwtToken, user } = res.data;
     localStorage.setItem("jwtToken", jwtToken);
-    APIUtil.authToken(jwtToken);
     dispatch(setCurrentUser(user));
   });
 
@@ -42,6 +40,5 @@ export const updateUser = (user) => (dispatch) =>
 
 export const signout = () => (dispatch) => {
   localStorage.removeItem("jwtToken");
-  APIUtil.authToken(false);
   dispatch(signoutCurrentUser());
 };

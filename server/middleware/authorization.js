@@ -7,17 +7,16 @@ import KEYS from "../config/keys";
  */
 
 export default (req, res, next) => {
-  const jwtToken = req.header("jwtToken");
+  const authHeader = req.headers["authorization"];
+  const jwtToken = authHeader && authHeader.split(" ")[1];
+
   if (!jwtToken) {
     return res.status(403).json({ msg: "authorization denied" });
   }
-  // Verify token
-  try {
-    const payload = jwt.verify(jwtToken, KEYS.JWT_KEY);
-    console.log(payload);
+
+  jwt.verify(jwtToken, KEYS.JWT_KEY, (err, payload) => {
+    if (err) return res.status(403);
     req.userId = payload.user.userId;
     next();
-  } catch (err) {
-    res.status(401).json("Not Authorized");
-  }
+  });
 };

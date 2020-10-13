@@ -9,7 +9,6 @@ export const updateUserById = (userId, cols, files) => {
   });
 
   if (files) {
-    console.log("?");
     files.forEach((file) => {
       set.push(`${file.fieldname} = '${file.location}'`);
     });
