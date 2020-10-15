@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { RowWrapper, RowTrackWrapper } from "../designSystem/wrapper";
+import { RowWrapper } from "../designSystem/wrapper";
+import { RowTrackWrapper } from "../designSystem/trackStyledComponents";
 import { TrackItem } from "../trackItem/trackItem";
-import { SectionTitle, ItemTitle } from "../designSystem/text";
-import { TextContainer } from "../designSystem/textContainer";
+import {
+  SectionTitle,
+  ItemTitle,
+  TextContainer,
+} from "../designSystem/textStyledComponents";
 
 export const Line = styled.hr`
   border: 0;
@@ -15,9 +19,10 @@ export const Line = styled.hr`
 `;
 
 export const TrackIndexRow = ({ tracks, title, subTitle }) => {
-  const mapped = Object.keys(tracks).map((trackId) => (
-    <TrackItem key={trackId} track={tracks[trackId]} />
+  const mapped = tracks.map((track) => (
+    <TrackItem key={track.trackId} track={track} />
   ));
+
   return (
     <RowWrapper>
       <TextContainer>

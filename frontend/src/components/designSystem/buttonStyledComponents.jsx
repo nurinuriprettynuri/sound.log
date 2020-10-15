@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import colorTheme from "./colorTheme";
 
 export const RegularButton = styled.button`
   display: flex;
@@ -39,12 +38,7 @@ export const RegularButton = styled.button`
     `}
 `;
 
-export const TrackItemButtonDiv = styled.div`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  position: absolute;
-`;
+
 
 export const CustomButton = ({ text, orange, handleClick, wide }) => (
   <RegularButton orange={orange} onClick={handleClick} wide={wide}>

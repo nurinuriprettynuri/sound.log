@@ -13,9 +13,9 @@ const router = express.Router();
 /**
  * getting user information
  */
-router.get("/", authorization, async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
-    const { userId } = req;
+    const { userId } = req.params;
 
     const user = await pool.query(
       `SELECT id as "userId", username, location, email, avatar FROM users WHERE id=$1`,

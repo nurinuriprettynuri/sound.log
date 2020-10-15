@@ -72,54 +72,6 @@ export const RowWrapper = styled.div`
   min-height: 500px;
 `;
 
-export const RowTrackWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin-top: 20px;
-`;
-
-export const CommentInputDiv = styled.form`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 5px 0px 5px 0;
-  height: 40px;
-  width: 100%;
-  border: 1px solid #e5e5e5;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-`;
-
-export const CommentShowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 60px;
-  margin: 0;
-  box-sizing: border-box;
-`;
-
-export const ProfileImage = styled.div`
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background-color: #d6cee2;
-  background-image: url(${(props) => props.img});
-  background-size: cover;
-  background-repeat: no-repeat;
-  ${(props) =>
-    props.small &&
-    css`
-      background-color: #fdd5e0;
-      width: 40px;
-      height: 40px;
-    `}
-`;
-
 export const ColSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,18 +97,5 @@ export const BottomBorderDiv = styled.div`
   display: flex;
   align-items: center;
   height: 30px;
-
   border-bottom: 1px solid #f2f2f2;
-`;
-
-export const ShowTopWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 350px;
-  width: 100%;
-  padding: 15px;
-  box-sizing: border-box;
-  justify-content: space-between;
-  background-image: url(${(props) => props.img});
-  position: relative;
 `;

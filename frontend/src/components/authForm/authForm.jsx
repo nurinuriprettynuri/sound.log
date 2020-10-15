@@ -9,7 +9,7 @@ import {
   BasicForm,
   BasicButton,
   FormWarningSpan,
-} from "../designSystem/basicForm";
+} from "../designSystem/basicFormStyledComponents";
 import { withRouter } from "react-router-dom";
 import { authValidation, formText } from "../../util/authValidation";
 import { asyncInterval } from "../../util/asyncInterval";
@@ -74,7 +74,7 @@ export const AuthModalForm = ({
 
   const handleMockLogin = () => {
     const mockPassword = "password";
-    const mockEmail = "testing@gmail.com";
+    const mockEmail = "orangecat@gmail.com";
     let i = 0;
     let j = 0;
 

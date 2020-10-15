@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { TrackImage } from "../designSystem/trackImage";
-import { TextContainer } from "../designSystem/textContainer";
-import { ItemTitle, GreyH6 } from "../designSystem/text";
+import { TrackImage } from "../designSystem/trackStyledComponents";
+
+import {
+  ItemTitle,
+  GreyH6,
+  TextContainer,
+} from "../designSystem/textStyledComponents";
 import { OrangePlayButton } from "../playButton/playButton.container";
 import LikeButton from "../likeButton/likeButton";
 import DeleteButton from "../deleteButton/deleteButton";

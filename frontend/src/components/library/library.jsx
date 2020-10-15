@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { CenterWrapper, RowTrackWrapper } from "../designSystem/wrapper";
+import { CenterWrapper } from "../designSystem/wrapper";
+import { RowTrackWrapper } from "../designSystem/trackStyledComponents";
 import { LibraryNavBar } from "./libaryNavBar";
 import { TrackItem } from "../trackItem/trackItem";
 import { connect } from "react-redux";
@@ -51,9 +52,9 @@ const Library = ({
   const recc = Object.keys(tracks)
     .slice(0, 5)
     .reduce((result, trackId) => {
-      result[trackId] = tracks[trackId];
+      result.push(tracks[trackId]);
       return result;
-    }, {});
+    }, []);
 
   const currentTracks = path === "/library/likes" ? likedTracks : myTracks;
 

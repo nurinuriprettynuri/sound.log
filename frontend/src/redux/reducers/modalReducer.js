@@ -4,6 +4,7 @@ import { OPEN_MODAL, CLOSE_MODAL } from "../actions/modalAction";
 const INITIAL_STATE = {
   auth: false,
   confirm: false,
+  loading: false,
 };
 
 export const modalReducer = (state = INITIAL_STATE, action) => {

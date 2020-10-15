@@ -32,8 +32,8 @@ export const signin = (user) => (dispatch) =>
     dispatch(setCurrentUser(user));
   });
 
-export const fetchUser = () => (dispatch) =>
-  APIUtil.fetchUser().then((res) => dispatch(setCurrentUser(res.data)));
+export const fetchUser = (userId) => (dispatch) =>
+  APIUtil.fetchUser(userId).then((res) => dispatch(setCurrentUser(res.data)));
 
 export const updateUser = (user, userId) => (dispatch) =>
   APIUtil.updateUser(user, userId).then((res) =>

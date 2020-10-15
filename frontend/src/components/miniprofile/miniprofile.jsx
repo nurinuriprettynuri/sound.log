@@ -1,6 +1,7 @@
 import React from "react";
-import { ProfileImage } from "../designSystem/wrapper";
+import { TrackArtistProfileImage } from "../designSystem/trackStyledComponents";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ProfileWrapper = styled.div`
   width: 200px;
@@ -11,12 +12,16 @@ const ProfileWrapper = styled.div`
   padding: 10px 10px;
 `;
 
-export const MiniProfile = ({ artist, avatar }) => {
+export const MiniProfile = ({ artist }) => {
   return (
     <ProfileWrapper>
       <br />
-      <ProfileImage img={artist.avatar} />
-      <span>{artist.username}</span>
+      <Link to={`/artist/${artist.artistId}`}>
+        <TrackArtistProfileImage img={artist.avatar} />
+      </Link>
+      <Link to={`/artist/${artist.artistId}`}>
+        <span>{artist.username}</span>
+      </Link>
     </ProfileWrapper>
   );
 };

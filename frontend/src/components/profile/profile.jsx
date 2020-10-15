@@ -1,42 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {
-  CenterWrapper,
-  ShowTopWrapper,
-  ColSection,
-  RowWrapper,
-} from "../designSystem/wrapper";
-import { Link } from "react-router-dom";
+import { CenterWrapper, ColSection, RowWrapper } from "../designSystem/wrapper";
+
 import EditIcon from "@material-ui/icons/Edit";
 import styled from "styled-components";
-import { TitleSpan } from "../designSystem/text";
+import { TitleSpan } from "../designSystem/textStyledComponents";
 import show_bg from "../../images/show_background.jpg";
 import selfie from "../../images/selfie.jpeg";
-import { ProfileImage } from "../designSystem/basicForm";
 
-const Paragraph = styled.p`
-  width: 100%;
-  font-size: 20px;
-  margin: 3px 0;
-  color: #fff;
-`;
-
-const ProfileTopWrapper = styled(ShowTopWrapper)`
-  height: 400px;
-  align-items: center;
-  padding: 40px;
-`;
-
-const LinkButton = styled(Link)`
-  text-decoration: none;
-  padding: 2px;
-  border-radius: 3px;
-
-  width: 26px;
-  align-items: center;
-  position: absolute;
-  right: 2%;
-  bottom: 2%;
-`;
+import {
+  ProfileTopWrapper,
+  Paragraph,
+  LinkButton,
+  ProfileImage,
+} from "../designSystem/profileStyledComponents";
 
 const ProfileCol = styled(ColSection)`
   padding: 0 20px;
@@ -45,7 +21,7 @@ const ProfileCol = styled(ColSection)`
 export const UserProfile = ({ fetchUser, currentUser }) => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    fetchUser().then(() => setLoading(false));
+    fetchUser(currentUser.userId).then(() => setLoading(false));
   }, []);
   if (isLoading) {
     return null;

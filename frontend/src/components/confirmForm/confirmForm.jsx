@@ -1,8 +1,8 @@
 import React from "react";
-import { BasicForm, TitleDiv, TitleP } from "../designSystem/basicForm";
+import { BasicForm, TitleDiv, TitleP } from "../designSystem/basicFormStyledComponents";
 import { SplashButtonwrapper } from "../splash/splash";
 import styled from "styled-components";
-import { CustomButton } from "../designSystem/button";
+import { CustomButton } from "../designSystem/buttonStyledComponents";
 
 const ConfirmationForm = styled(BasicForm)`
   padding: 10px;

@@ -9,7 +9,7 @@ const mapStateToProps = ({ currentUser }, { history }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(fetchUser()),
+  fetchUser: (userId) => dispatch(fetchUser(userId)),
   updateUser: (user, userId) => dispatch(updateUser(user, userId)),
 });
 

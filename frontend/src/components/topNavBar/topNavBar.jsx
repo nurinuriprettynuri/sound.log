@@ -5,7 +5,7 @@ import {
   NavBar,
   MiddleNavWrapper,
   SideNavWrapper,
-} from "../designSystem/navbar";
+} from "../designSystem/navbarStyledComponents";
 import ToggleMenu from "../toggleButton/toggleButton";
 import Autocomplete from "../autocomplete/autocomplete";
 import { Link } from "react-router-dom";

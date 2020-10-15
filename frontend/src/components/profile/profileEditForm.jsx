@@ -12,9 +12,10 @@ import {
   BasicFormInput,
   BasicInputLabel,
   FormLeftContainer,
-  ProfileImage,
   FormWarningSpan,
-} from "../designSystem/basicForm";
+} from "../designSystem/basicFormStyledComponents";
+
+import { ProfileImage } from "../designSystem/profileStyledComponents";
 import { useForm } from "react-hook-form";
 
 const ButtonWrapper = styled.div`
@@ -47,7 +48,7 @@ export const ProfileEditForm = ({
   };
 
   useEffect(() => {
-    fetchUser().then(() => setLoading(false));
+    fetchUser(currentUser.userId).then(() => setLoading(false));
   }, []);
 
   if (isLoading) return null;
@@ -65,7 +66,9 @@ export const ProfileEditForm = ({
       formData.append("avatar", data.avatar[0]);
     }
 
-    updateUser(formData, currentUser.userId).then((res) => history.push(`/you`));
+    updateUser(formData, currentUser.userId).then((res) =>
+      history.push(`/you`)
+    );
   };
 
   return (

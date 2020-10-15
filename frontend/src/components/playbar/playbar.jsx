@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavBar } from "../designSystem/navbar";
+import { NavBar } from "../designSystem/navbarStyledComponents";
 import ReactAudioPlayer from "react-audio-player";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
-import { MiddleNavWrapper } from "../designSystem/navbar";
+import { MiddleNavWrapper } from "../designSystem/navbarStyledComponents";
 import { BasicPlayButton } from "../playButton/playButton.container";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";

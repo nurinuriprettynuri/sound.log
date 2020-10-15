@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { TrackItemButtonDiv } from "../designSystem/button";
+import { makeStyles } from "@material-ui/core/styles";
+import { TrackItemButtonDiv } from "../designSystem/trackStyledComponents";
 
 import {
   fetchLikeByUserId,
@@ -28,13 +29,23 @@ const LikeButtonDiv = styled(TrackItemButtonDiv)`
 `;
 
 const LikeButton = ({ likeTrack, trackId, userId, liked, unlikeTrack }) => {
+  const useStyles = makeStyles({
+    icon: {
+      color: liked ? "red" : "#fff",
+      opacity: "0.5",
+      "&:hover": { color: "#ec9076", opacity: "0.8" },
+    },
+  });
+
+  const classes = useStyles(liked);
+
   if (!userId) return null;
   const action = liked ? unlikeTrack : likeTrack;
-
   return (
     <LikeButtonDiv>
       <FavoriteIcon
-        style={{ color: liked ? "red" : "black" }}
+        liked={liked}
+        className={classes.icon}
         onClick={() => action(userId, trackId)}
       />
     </LikeButtonDiv>

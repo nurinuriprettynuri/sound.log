@@ -6,10 +6,10 @@ import {
   VerticalLine,
 } from "../designSystem/wrapper";
 import show_bg from "../../images/show_background.jpg";
-import { TrackImage } from "../designSystem/trackImage";
+import { TrackImage } from "../designSystem/trackStyledComponents";
 import styled from "styled-components";
-import { TitleSpan } from "../designSystem/text";
-import { TextContainer } from "../designSystem/textContainer";
+import { TitleSpan, TextContainer } from "../designSystem/textStyledComponents";
+
 import { OrangePlayButton } from "../playButton/playButton.container";
 import { Comment } from "../comment/comment";
 import CommentForm from "../comment/comment.container";
@@ -57,6 +57,7 @@ const TrackShowTopWrapper = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   background-image: url(${(props) => props.img});
+  background-size: 100%;
   position: relative;
 `;
 

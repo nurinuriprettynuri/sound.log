@@ -1,4 +1,5 @@
 import * as APIUtil from "../../util/trackApi";
+import { closeModal } from "./modalAction";
 
 export const RECEIVE_ALL_TRACKS = "RECEIVE_ALL_TRACKS";
 export const RECEIVE_TRACK = "RECEIVE_TRACK";
@@ -31,34 +32,23 @@ export const clearTrackErrors = () => ({
 });
 
 export const fetchAllTracks = () => (dispatch) =>
-  APIUtil.fetchAllTracks().then(
-    (res) => dispatch(receiveAllTracks(res.data)),
-    (err) => dispatch(receiveErrors(err.responseJSON))
-  );
+  APIUtil.fetchAllTracks().then((res) => dispatch(receiveAllTracks(res.data)));
 
 export const fetchTrack = (trackId) => (dispatch) =>
-  APIUtil.fetchTrack(trackId).then(
-    (res) => dispatch(receiveTrack(res.data)),
-    (err) => dispatch(receiveErrors(err.responseJSON))
-  );
+  APIUtil.fetchTrack(trackId).then((res) => dispatch(receiveTrack(res.data)));
 
 export const createTrack = (track) => (dispatch) =>
-  APIUtil.createTrack(track).then(
-    (res) => dispatch(receiveTrack(res.data)),
-    (err) => {
-      dispatch(receiveErrors(err.responseJSON));
-    }
-  );
+  APIUtil.createTrack(track).then((res) => {
+    dispatch(receiveTrack(res.data));
+    dispatch(closeModal({ type: "loading", data: false }));
+  });
 
 export const updateTrack = (track, id) => (dispatch) => {
-  return APIUtil.updateTrack(track, id).then(
-    (res) => dispatch(receiveTrack(res.data)),
-    (err) => dispatch(receiveErrors(err.responseJSON))
-  );
+  return APIUtil.updateTrack(track, id).then((res) => {
+    dispatch(receiveTrack(res.data));
+    dispatch(closeModal({ type: "loading", data: false }));
+  });
 };
 
 export const deleteTrack = (id) => (dispatch) =>
-  APIUtil.deleteTrack(id).then(
-    (res) => dispatch(removeTrack(res.data)),
-    (err) => dispatch(receiveErrors(err.responseJSON))
-  );
+  APIUtil.deleteTrack(id).then((res) => dispatch(removeTrack(res.data)));

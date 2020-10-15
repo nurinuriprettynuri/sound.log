@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomButton } from "../designSystem/button";
+import { CustomButton } from "../designSystem/buttonStyledComponents";
 import { openModal } from "../../redux/actions/modalAction";
 import { connect } from "react-redux";
 

@@ -7,7 +7,7 @@ import {
   ButtonWrapper,
   PageWrapper,
 } from "../designSystem/wrapper";
-import { SectionTitle } from "../designSystem/text";
+import { SectionTitle } from "../designSystem/textStyledComponents";
 import { TrackItem } from "../trackItem/trackItem";
 import SignInButton from "../authModalButton/authModalButton";
 import { connect } from "react-redux";

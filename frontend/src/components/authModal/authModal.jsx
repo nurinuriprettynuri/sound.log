@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import { openModal, closeModal } from "../../redux/actions/modalAction";
 import { register, signin } from "../../redux/actions/authAction";
 import ClearIcon from "@material-ui/icons/Clear";
-import { TrackItemButtonDiv } from "../designSystem/button";
+import {
+  ModalBackground,
+  ModalClearDiv,
+} from "../designSystem/modalStyledComponents";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -21,21 +24,6 @@ const mapStateToProps = ({ modal: { auth } }) => {
     authModal: auth,
   };
 };
-
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background-color: hsla(0, 0%, 94.9%, 0.9);
-  z-index: 20;
-`;
-
-const ModalClearDiv = styled(TrackItemButtonDiv)`
-  top: 0;
-  right: 1%;
-`;
 
 const ModalWrapper = styled.div`
   position: absolute;

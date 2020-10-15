@@ -17,7 +17,7 @@ import {
   FormImagePreview,
   FormLeftContainer,
   FormWarningSpan,
-} from "../designSystem/basicForm";
+} from "../designSystem/basicFormStyledComponents";
 import { useForm } from "react-hook-form";
 
 const ButtonWrapper = styled.div`
@@ -37,6 +37,7 @@ export const TrackUploadForm = ({
   track,
   trackId,
   formType,
+  submitLoading,
 }) => {
   const { register, handleSubmit, errors } = useForm();
 
@@ -144,7 +145,9 @@ export const TrackUploadForm = ({
             </BasicInputLabel>
             <ButtonWrapper>
               <SubmitButton cancel={`cancel`}>Cancel</SubmitButton>
-              <SubmitButton value="submit">Submit</SubmitButton>
+              <SubmitButton value="submit" onClick={submitLoading}>
+                Submit
+              </SubmitButton>
             </ButtonWrapper>
           </WideForm>
         </RowSection>

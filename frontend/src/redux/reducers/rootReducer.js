@@ -7,6 +7,7 @@ import { modalReducer } from "./modalReducer";
 import { playbarReducer } from "./playbarReducer";
 import { likeReducer } from "./likeReducer";
 import { commentReducer } from "./commentReducer";
+import { artistReducer } from "./artistReducer";
 
 export const rootReducer = combineReducers({
   currentUser: authReducer,
@@ -16,4 +17,5 @@ export const rootReducer = combineReducers({
   playbar: playbarReducer,
   liked: likeReducer,
   comments: commentReducer,
+  artists: artistReducer,
 });

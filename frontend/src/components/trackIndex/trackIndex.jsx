@@ -40,17 +40,24 @@ export const TrackIndex = ({
     return null;
   }
 
-  const trendyTracks = [];
-  Object.keys(tracks).forEach((e, idx) => {
-    if (tracks[e].trendy) {
-      trendyTracks.push(tracks[e]);
-    }
-  });
+  const trendyTracks = Object.keys(tracks)
+    .filter((e, idx) => tracks[e].trendy && idx < 10)
+    .reduce((result, curr) => {
+      result.push(tracks[curr]);
+      return result;
+    }, []);
+
+  const newRelease = Object.keys(tracks)
+    .slice(0, 11)
+    .reduce((result, curr) => {
+      result.push(tracks[curr]);
+      return result;
+    }, []);
 
   return (
     <CenterWrapper>
       <TrackIndexRow
-        tracks={tracks}
+        tracks={newRelease}
         title={"New Release"}
         subTitle={"Check out newest tracks on Sound.log!"}
       />

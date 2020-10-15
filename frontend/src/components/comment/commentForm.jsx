@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import DoneIcon from "@material-ui/icons/Done";
-import { CommentInputDiv } from "../designSystem/wrapper";
+import { CommentInputDiv } from "../designSystem/commentStyledComponents";
 import { useForm } from "react-hook-form";
 
 const MiniProfilePicture = styled.div`
