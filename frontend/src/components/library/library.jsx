@@ -47,12 +47,9 @@ const Library = ({
     (trackId) => tracks[trackId].liked
   );
 
-  const myTracks = Object.keys(tracks)
-    .filter((trackId) => tracks[trackId].artistId === currentUser.userId)
-    .reduce((res, curr) => {
-      res.push(tracks[curr]);
-      return res;
-    }, []);
+  const myTracks = Object.keys(tracks).filter(
+    (trackId) => tracks[trackId].artistId === currentUser.userId
+  );
 
   const recc = Object.keys(tracks)
     .slice(0, 5)
