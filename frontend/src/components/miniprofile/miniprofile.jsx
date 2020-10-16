@@ -5,12 +5,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const ProfileWrapper = styled.div`
-  width: 200px;
+  width: 180px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
-  padding: 10px 10px;
+  padding: 0px 15px 0px 0px;
 `;
 
 const NoDecoLink = styled(Link)`

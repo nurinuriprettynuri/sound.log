@@ -5,9 +5,10 @@ export const PageWrapper = styled.div`
   justify-content: center;
   background-color: #f2f2f2;
   width: 100vw;
+  box-sizing: border-box;
   min-width: 900px;
-  overflow-x: scroll;
-  height: 100%;
+  overflow: hidden;
+  overflow: scroll;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -20,12 +21,12 @@ export const CenterWrapper = styled.div`
   display: flex;
   padding-top: 50px;
   padding-bottom: 80px;
+  box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   width: 90%;
   max-width: 1240px;
   min-width: 900px;
-  min-height: 900px;
   background-color: #fff;
 `;
 
@@ -48,17 +49,17 @@ export const MiddleWrapper = styled.div`
   width: 100%;
 `;
 
-export const ButtomWrapper = styled.div`
+export const BottomWrapper = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   width: 100%;
   padding: 20px;
   padding-bottom: 40px;
   box-sizing: border-box;
-  height: 600px;
+  height: auto;
 `;
 
 export const RowWrapper = styled.div`

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   CenterWrapper,
-  ButtomWrapper,
+  BottomWrapper,
   ColSection,
   VerticalLine,
 } from "../designSystem/wrapper";
@@ -124,7 +124,7 @@ export const TrackShow = ({
         </TopLeftDiv>
         <TrackImage img={track.imageUrl} />
       </TrackShowTopWrapper>
-      <ButtomWrapper>
+      <BottomWrapper>
         <BottomLeftSection>
           <CommentForm />
           <BottomRowSection left={true}>
@@ -136,7 +136,7 @@ export const TrackShow = ({
         <BottomRightSection>
           <ColumnSection title={"Related tracks"}>{<></>}</ColumnSection>
         </BottomRightSection>
-      </ButtomWrapper>
+      </BottomWrapper>
     </CenterWrapper>
   );
 };

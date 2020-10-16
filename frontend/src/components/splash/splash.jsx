@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import {
   CenterWrapper,
   TopWrapper,
-  MiddleWrapper,
-  ButtomWrapper,
   ButtonWrapper,
   PageWrapper,
+  BottomWrapper,
 } from "../designSystem/wrapper";
 import { SectionTitle } from "../designSystem/textStyledComponents";
 import { TrackItem } from "../trackItem/trackItem";
@@ -14,6 +13,7 @@ import { connect } from "react-redux";
 import { fetchAllTracks } from "../../redux/actions/trackAction";
 import { openModal } from "../../redux/actions/modalAction";
 import { setCurrentTrack } from "../../redux/actions/playbarAction";
+import { RowTrackWrapper } from "../designSystem/trackStyledComponents";
 import styled from "styled-components";
 import { MainLogo } from "../designSystem/logo";
 import main from "../../images/sp.gif";
@@ -44,18 +44,13 @@ const SplashImage = styled(TopWrapper)`
   background-color: #dabfde;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 const TempDiv = styled.img`
   width: 300px;
   height: 300px;
   object-fit: cover;
-`;
-
-const Wrapper = styled(PageWrapper)`
-  position: fixed;
-  top: 0;
-  padding-top: 0;
 `;
 
 const SplashTitle = styled.p`
@@ -89,31 +84,29 @@ const Splash = ({ fetchAllTracks, tracks, openModal }) => {
   ));
 
   return (
-    <Wrapper>
-      <SplashWrapper>
-        <SplashImage>
-          <SplashButtonwrapper>
-            <MainLogo big={true} handleClick={openModal} />
-          </SplashButtonwrapper>
-          <SplashTitle onClick={openModal}>
-            Sound.log("So much music, so little time");
-          </SplashTitle>
-          <TempDiv src={main} />
-          <SplashButtonwrapper>
-            <ButtonWrapper>
-              <SignInButton text={"Sign in"} />
-              <SignInButton text={"Create account"} />
-            </ButtonWrapper>
-          </SplashButtonwrapper>
-        </SplashImage>
-        <MiddleWrapper>
-          <SectionTitle>
-            Hear what’s trending in the Sound.Log community
-          </SectionTitle>
-        </MiddleWrapper>
-        <ButtomWrapper>{mapped}</ButtomWrapper>
-      </SplashWrapper>
-    </Wrapper>
+    <SplashWrapper>
+      <SplashImage>
+        <SplashButtonwrapper>
+          <MainLogo big={true} handleClick={openModal} />
+        </SplashButtonwrapper>
+        <SplashTitle onClick={openModal}>
+          Sound.log("So much music, so little time");
+        </SplashTitle>
+        <TempDiv src={main} />
+        <SplashButtonwrapper>
+          <ButtonWrapper>
+            <SignInButton text={"Sign in"} />
+            <SignInButton text={"Create account"} />
+          </ButtonWrapper>
+        </SplashButtonwrapper>
+      </SplashImage>
+      <BottomWrapper>
+        <SectionTitle>
+          Hear what’s trending in the Sound.Log community
+        </SectionTitle>
+        <RowTrackWrapper>{mapped}</RowTrackWrapper>
+      </BottomWrapper>
+    </SplashWrapper>
   );
 };
 

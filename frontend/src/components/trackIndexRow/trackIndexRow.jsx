@@ -16,6 +16,7 @@ export const Line = styled.hr`
   height: 2px;
   width: 100%;
   margin: 20px 0 15px;
+  box-sizing: border-box;
 `;
 
 export const TrackIndexRow = ({ tracks, title, subTitle }) => {

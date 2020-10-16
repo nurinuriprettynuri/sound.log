@@ -35,7 +35,7 @@ export const RightSection = materialStyled(Button)({
   display: "flex",
   boxSizing: "border-box",
   alignItems: "center",
-  minWidth: "50px",
+  minWidth: "40px",
   fontSize: "14px",
   margin: 0,
   textTransform: "none",
@@ -53,6 +53,7 @@ const LeftSectionButton = materialStyled(Button)({
   boxSizing: "border-box",
   borderRight: "1px solid #111",
   width: "100px",
+  minWidth: "40px",
   color: "#ccc",
   "&:hover": {
     color: "#fff",
@@ -64,6 +65,7 @@ export const Section = styled.div`
   flex: 1;
   flex-grow: 1;
   align-items: center;
+  boxSizing: "border-box",
   justify-content: center;
   height: 100%;
   color: #ccc;

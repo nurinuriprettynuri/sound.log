@@ -64,7 +64,7 @@ export const AutoComplete = function CustomInputAutocomplete({
   useEffect(() => {
     fetchAllTracks().then(() => setLoading(false));
   }, []);
-  if (isLoading) return null;
+  if (isLoading) return <AutoCompleteInput />;
   const options = Object.keys(tracks).map((trackId) => tracks[trackId]);
   return (
     <AutocompleteWrapper>
