@@ -55,7 +55,7 @@ export const BasicForm = styled.form`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  autocomplete: off;
+  autocomplete: "off";
 `;
 
 export const BasicTextArea = styled.textarea`
