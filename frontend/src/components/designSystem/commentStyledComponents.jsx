@@ -11,7 +11,6 @@ export const CommentInputDiv = styled.form`
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
   margin-bottom: 20px;
-  autocomplete: "off";
 `;
 
 export const CommentShowDiv = styled.div`

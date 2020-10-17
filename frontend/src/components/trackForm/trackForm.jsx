@@ -92,7 +92,7 @@ export const TrackUploadForm = ({
           <FormLeftContainer>
             <FormImagePreview img={(track && track.imageUrl) || imgData} />
           </FormLeftContainer>
-          <WideForm onSubmit={handleSubmit(onSubmit)}>
+          <WideForm onSubmit={handleSubmit(onSubmit)} autocomplete="off">
             <BasicInputLabel>Title</BasicInputLabel>
             <BasicFormInput
               name="title"

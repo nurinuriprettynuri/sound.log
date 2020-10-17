@@ -51,7 +51,7 @@ export const CommentForm = ({ userId, trackId, createComment, avatar }) => {
   };
 
   return (
-    <CommentInputDiv onSubmit={handleSubmit(onSubmit)}>
+    <CommentInputDiv onSubmit={handleSubmit(onSubmit)} autocomplete="off">
       <MiniProfilePicture img={avatar} />
       <CommentInput name="body" ref={register({ required: true })} />
       <CommentButton value="submit">

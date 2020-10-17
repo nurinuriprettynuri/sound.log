@@ -130,7 +130,7 @@ export const AuthModalForm = ({
         <TitleP>{title}</TitleP>
       </TitleDiv>
       <FormDiv>
-        <AuthForm onSubmit={handleSubmit}>
+        <AuthForm onSubmit={handleSubmit} autocomplete="off">
           {whichAuth !== "signin" && (
             <React.Fragment>
               <BasicInputLabel>Username</BasicInputLabel>

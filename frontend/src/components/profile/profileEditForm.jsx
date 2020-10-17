@@ -90,7 +90,7 @@ export const ProfileEditForm = ({
               />
             </BasicInputLabel>
           </FormLeftContainer>
-          <WideForm onSubmit={handleSubmit(onSubmit)}>
+          <WideForm onSubmit={handleSubmit(onSubmit)} autocomplete="off">
             <BasicInputLabel>Displayname</BasicInputLabel>
             <BasicFormInput
               name="username"
