@@ -8,8 +8,8 @@ export const SectionTitle = styled.h2`
 
 export const ItemTitle = styled.h5`
   margin: 2px 2px 0px;
-  font-weight: 300;
-  color: ${(props) => props.big && `#999`};
+  font-weight: 400;
+  color: ${(props) => (props.big ? `#999` : "#333")};
 `;
 
 export const GreyH6 = styled.h6`

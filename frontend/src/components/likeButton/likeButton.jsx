@@ -43,7 +43,7 @@ const LikeButton = ({ likeTrack, trackId, userId, liked, unlikeTrack }) => {
   return (
     <LikeButtonDiv>
       <FavoriteIcon
-        liked={liked}
+        liked={liked ? 1 : 0}
         className={classes.icon}
         onClick={() => action(userId, trackId)}
       />

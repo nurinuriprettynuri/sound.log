@@ -48,7 +48,7 @@ export const TrackIndex = ({
     }, []);
 
   const newRelease = Object.keys(tracks)
-    .slice(0, 11)
+    .slice(0, 10)
     .reduce((result, curr) => {
       result.push(tracks[curr]);
       return result;

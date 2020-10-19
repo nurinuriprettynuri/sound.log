@@ -38,7 +38,7 @@ export const TrackItem = ({ track }) => {
         </Link>
         <OrangePlayButton small={true} track={track} />
         <DeleteButton track={track} />
-        <LikeButton liked={track.liked} trackId={track.trackId} />
+        <LikeButton liked={track.liked ? 1 : 0} trackId={track.trackId} />
         <TextContainer>
           <ItemTitle>{track.title}</ItemTitle>
           <GreyH6>{track.username}</GreyH6>

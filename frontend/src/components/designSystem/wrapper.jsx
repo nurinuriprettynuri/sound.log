@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -8,7 +8,6 @@ export const PageWrapper = styled.div`
   box-sizing: border-box;
   min-width: 900px;
   overflow: hidden;
-  overflow: scroll;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -24,7 +23,7 @@ export const CenterWrapper = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  width: 90%;
+  width: 90vw;
   max-width: 1240px;
   min-width: 900px;
   background-color: #fff;

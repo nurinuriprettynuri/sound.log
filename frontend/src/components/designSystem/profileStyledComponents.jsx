@@ -1,6 +1,6 @@
 import { TrackImage } from "./trackStyledComponents";
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const ProfileTopWrapper = styled.div`
   display: flex;
@@ -19,8 +19,8 @@ export const ProfileTopWrapper = styled.div`
 
 export const Paragraph = styled.p`
   width: 100%;
-  font-size: 20px;
-  margin: 3px 0;
+  font-size: 18px;
+  margin: 5px 3px;
   color: #fff;
 `;
 

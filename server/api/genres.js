@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const genres = await pool.query("SELECT * FROM genres");
-    res.send(genres.rows);
+    res.json(genres.rows);
   } catch (err) {
     res.status(500).send("Server error");
   }

@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../db/db";
+import authorization from "../middleware/authorization";
 
 const router = express.Router();
 
-router.get("/:trackId", async (req, res) => {
+router.get("/:trackId", authorization, async (req, res) => {
   const { trackId } = req.params;
   try {
     const comments = await pool.query(
@@ -18,7 +19,7 @@ router.get("/:trackId", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authorization, async (req, res) => {
   const { userId, trackId, body } = req.body;
 
   try {

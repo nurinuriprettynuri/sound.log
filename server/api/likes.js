@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     const trendyTracks = likes.rows.map((e) => e.track);
 
     res.json(trendyTracks);
-    res.status(200);
+   
   } catch (err) {
     console.log(err);
     res.status(500);
@@ -31,7 +31,7 @@ router.get("/:userId", async (req, res) => {
     const trendyTracks = likes.rows.map((e) => e.track);
 
     res.json(trendyTracks);
-    res.status(200);
+  
   } catch (err) {
     console.log(err);
     res.status(500);

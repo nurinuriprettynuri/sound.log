@@ -3,7 +3,6 @@ import {
   CenterWrapper,
   TopWrapper,
   ButtonWrapper,
-  PageWrapper,
   BottomWrapper,
 } from "../designSystem/wrapper";
 import { SectionTitle } from "../designSystem/textStyledComponents";

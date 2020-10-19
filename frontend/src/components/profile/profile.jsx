@@ -38,7 +38,12 @@ export const UserProfile = ({ fetchUser, currentUser }) => {
   const mapped = (
     <React.Fragment>
       <TitleSpan big={true}>{currentUser.username}</TitleSpan>
-      <Paragraph>{currentUser.location}</Paragraph>
+      {currentUser.location && (
+        <TitleSpan big={false}>{currentUser.location}</TitleSpan>
+      )}
+      <div>
+        <Paragraph>{currentUser.bio}</Paragraph>
+      </div>
     </React.Fragment>
   );
 

@@ -1,27 +1,28 @@
 import express from "express";
 import { updateUserById } from "../utils/queries/users";
 import validation from "../middleware/validations";
-import { upload } from "../middleware/multer";
+import { upload } from "../utils/multer";
 import bcrypt from "bcryptjs";
 import pool from "../db/db";
-import { jwtGenerator } from "../utils/jwtGenerator";
+import { jwtGenerator, refreshTokens } from "../utils/jwtGenerator";
 import authorization from "../middleware/authorization";
 const userUpload = upload.any();
 
 const router = express.Router();
 
 /**
- * getting user information
+ * getting user/artist information
  */
 router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
 
     const user = await pool.query(
-      `SELECT id as "userId", username, location, email, avatar FROM users WHERE id=$1`,
+      `SELECT id as "userId", username, location, email, avatar, bio FROM users WHERE id=$1`,
       [userId]
     );
-    return res.json(user.rows[0]);
+
+    res.json({ user: user.rows[0] });
   } catch (err) {
     console.log(err);
     res.status(500).json("Server error");
@@ -51,9 +52,12 @@ router.post("/", validation, async (req, res) => {
       [username, email, bcryptPassword]
     );
 
-    const jwtToken = jwtGenerator(newUser.rows[0].userId);
+    //generate tokens
+    const [accessToken, refreshToken] = await jwtGenerator(
+      newUser.rows[0].userId
+    );
 
-    return res.json({ jwtToken, user: newUser.rows[0] });
+    res.json({ user: newUser.rows[0], accessToken, refreshToken });
   } catch (err) {
     res.status(500).json("Server error");
   }
@@ -76,15 +80,17 @@ router.post("/signin", validation, async (req, res) => {
       return res.status(401).json("Invalid user information");
     }
 
-    //compare incoming password with hashed password
+    //password validation
     const validPassword = await bcrypt.compare(password, user.rows[0].password);
 
-    //password validation
     if (!validPassword) {
       return res.status(401).json("Invalid user information");
     }
-    const jwtToken = jwtGenerator(user.rows[0].userId);
-    return res.json({ jwtToken, user: user.rows[0] });
+
+    //generate tokens
+    const [accessToken, refreshToken] = await jwtGenerator(user.rows[0].userId);
+
+    res.json({ user: user.rows[0], accessToken, refreshToken });
   } catch (err) {
     res.status(500).json("Server Error");
   }
@@ -93,10 +99,10 @@ router.post("/signin", validation, async (req, res) => {
 /**
  * user profile update by userId
  */
+router.patch("/:userId", authorization, userUpload, async (req, res) => {
+  const userId = req.userId;
 
-router.patch("/:userId", userUpload, async (req, res) => {
-  // const userId = req.userId;
-  const { userId } = req.params;
+  if (userId !== req.params.userId) res.status(403);
 
   let [updateQuery, values] = updateUserById(userId, req.body, req.files);
 
@@ -107,7 +113,7 @@ router.patch("/:userId", userUpload, async (req, res) => {
       [userId]
     );
 
-    res.json(user.rows[0]);
+    res.json({ user: user.rows[0] });
   } catch (err) {
     console.log(err);
     res.status(500).json("server error");
@@ -117,7 +123,6 @@ router.patch("/:userId", userUpload, async (req, res) => {
 /**
  * delete user
  */
-
 router.delete("/", authorization, async (req, res) => {
   const { userId } = req;
 
@@ -126,9 +131,25 @@ router.delete("/", authorization, async (req, res) => {
       `DELETE FROM users WHERE id=$1 RETURNING id as "userId"`,
       [userId]
     );
-    return res.json(deletedUser.rows[0].userId);
+    res.json({ userId: deletedUser.rows[0].userId });
   } catch (err) {
     res.status(500).json("Server error");
+  }
+});
+
+/**
+ * refresh access token when expired
+ */
+router.post("/auth", async (req, res) => {
+  const { refreshToken } = req.body;
+  try {
+    const newTokens = await refreshTokens(refreshToken);
+
+    if (newTokens.accessToken && newTokens.refreshToken) {
+      return res.status(201).json(newTokens);
+    }
+  } catch (err) {
+    res.status(403).json({ msg: "authorization denied" });
   }
 });
 

@@ -42,6 +42,7 @@ export const TrackUploadForm = ({
   const { register, handleSubmit, errors } = useForm();
 
   //image preview hook
+
   const [imgData, setImgData] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
@@ -79,7 +80,13 @@ export const TrackUploadForm = ({
     if (data.image[0]) {
       formData.append("image", data.image[0]);
     }
+    submitLoading();
     handleTrackSubmit(formData, trackId).then((res) => history.push(`/tracks`));
+  };
+
+  const handleLoading = (errors) => {
+    if (Object.keys(errors).length !== 0) return;
+    submitLoading();
   };
 
   return (
@@ -122,7 +129,7 @@ export const TrackUploadForm = ({
             <BasicInputLabel>Description</BasicInputLabel>
             <BasicTextArea
               name="description"
-              ref={register({ required: true })}
+              ref={register({ required: false })}
               defaultValue={track ? track.description : ""}
             />
             <BasicInputLabel>
@@ -145,7 +152,10 @@ export const TrackUploadForm = ({
             </BasicInputLabel>
             <ButtonWrapper>
               <SubmitButton cancel={`cancel`}>Cancel</SubmitButton>
-              <SubmitButton value="submit" onClick={submitLoading}>
+              <SubmitButton
+                value="submit"
+                // onClick={() => handleLoading(errors)}
+              >
                 Submit
               </SubmitButton>
             </ButtonWrapper>

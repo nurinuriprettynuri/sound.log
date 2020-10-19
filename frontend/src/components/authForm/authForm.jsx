@@ -84,7 +84,7 @@ export const AuthModalForm = ({
         j++;
         return j === mockEmail.length;
       },
-      100,
+      80,
       mockEmail.length
     )
       .then(() =>
@@ -94,7 +94,7 @@ export const AuthModalForm = ({
             i++;
             return i === mockPassword.length;
           },
-          100,
+          80,
           mockPassword.length
         )
       )

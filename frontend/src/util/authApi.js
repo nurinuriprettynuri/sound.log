@@ -1,15 +1,10 @@
-import axios from "axios";
+import { instance } from "./axiosInstance";
 
-export const register = (user) => axios.post(`/api/users`, user);
+export const register = (user) => instance.post(`api/users`, user);
 
-export const signin = (user) => axios.post(`/api/users/signin`, user);
+export const signin = (user) => instance.post(`/api/users/signin`, user);
 
-export const fetchUser = (userId) => axios.get(`/api/users/${userId}`);
+export const fetchUser = (userId) => instance.get(`/api/users/${userId}`);
 
 export const updateUser = (user, userId) =>
-  axios.patch(`/api/users/${userId}`, user, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      authorization: "Bearer " + localStorage.getItem("jwtToken"),
-    },
-  });
+  instance.patch(`/api/users/${userId}`, user);

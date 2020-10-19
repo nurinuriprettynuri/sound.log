@@ -1,5 +1,7 @@
-import axios from "axios";
+import { instance } from "./axiosInstance";
 
-export const fetchComments = (trackId) => axios.get(`/api/comments/${trackId}`);
+export const fetchComments = (trackId) =>
+  instance.get(`/api/comments/${trackId}`);
 
-export const createComment = (comment) => axios.post(`/api/comments`, comment);
+export const createComment = (comment) =>
+  instance.post(`/api/comments`, comment);

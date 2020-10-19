@@ -7,4 +7,5 @@ export default {
   AWS_SECRET: process.env.AWS_SECRET,
   AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
   JWT_KEY: process.env.JWT_KEY,
+  REFRESH_JWT_KEY: process.env.REFRESH_JWT_KEY,
 };

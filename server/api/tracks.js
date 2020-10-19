@@ -1,5 +1,5 @@
 import express from "express";
-import { upload } from "../middleware/multer";
+import { upload } from "../utils/multer";
 import { updateTrackById } from "../utils/queries/tracks";
 import pool from "../db/db";
 import authorization from "../middleware/authorization";
@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
     const tracks = await pool.query(
       `SELECT t.id as "trackId", t.title as title, t.audio as "audioUrl", t.image as "imageUrl", t.description as description, u.id as "artistId", u.username as username, u.location as location, u.avatar as avatar FROM tracks as t INNER JOIN users as u ON t.artist = u.id ORDER BY t.created_at DESC`
     );
+
     res.json(tracks.rows);
   } catch (err) {
     res.status(500).json("server error");
@@ -23,7 +24,7 @@ router.get("/", async (req, res) => {
 /**
  * fetch a track by trackId
  */
-router.get("/:trackId", async (req, res) => {
+router.get("/:trackId", authorization, async (req, res) => {
   const { trackId } = req.params;
 
   try {
@@ -42,7 +43,7 @@ router.get("/:trackId", async (req, res) => {
 /**
  * delete a track by trackId
  */
-router.delete("/:trackId", async (req, res) => {
+router.delete("/:trackId", authorization, async (req, res) => {
   const { trackId } = req.params;
 
   try {
@@ -51,7 +52,7 @@ router.delete("/:trackId", async (req, res) => {
       [trackId]
     );
 
-    res.send(deleted.rows[0].trackId);
+    res.json(deleted.rows[0].trackId);
   } catch (err) {
     res.status(500).send("server error");
   }
@@ -60,9 +61,8 @@ router.delete("/:trackId", async (req, res) => {
 /**
  * patch(update) a track data by trackId
  */
-router.patch("/:trackId", trackUpload, async (req, res) => {
+router.patch("/:trackId", authorization, trackUpload, async (req, res) => {
   const { trackId } = req.params;
-  const { userId } = req;
 
   const [updateQuery, values] = updateTrackById(trackId, req.body, req.files);
 
@@ -73,7 +73,7 @@ router.patch("/:trackId", trackUpload, async (req, res) => {
       [updatedTrack.rows[0].trackId]
     );
 
-    res.send(track.rows[0]);
+    res.json(track.rows[0]);
   } catch (err) {
     console.log(err);
     res.status(500).send("server error");
@@ -84,7 +84,7 @@ router.patch("/:trackId", trackUpload, async (req, res) => {
  *create a track data using multer and multer-s3
  */
 
-router.post("/", trackUpload, async function (req, res) {
+router.post("/", authorization, trackUpload, async function (req, res) {
   const { title, genre, artist, description } = req.body;
   const image = req.files.filter((e) => e.fieldname === "image");
   const audio = req.files.filter((e) => e.fieldname === "audio");
@@ -100,7 +100,7 @@ router.post("/", trackUpload, async function (req, res) {
       [artist]
     );
 
-    res.send(track.rows[0]);
+    res.json(track.rows[0]);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

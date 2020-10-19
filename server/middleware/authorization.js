@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { refreshTokens } from "../utils/jwtGenerator";
 import KEYS from "../config/keys";
 
 /**
@@ -6,17 +7,22 @@ import KEYS from "../config/keys";
  *
  */
 
-export default (req, res, next) => {
+export default async (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const jwtToken = authHeader && authHeader.split(" ")[1];
+  const accessToken = authHeader && authHeader.split(" ")[1];
 
-  if (!jwtToken) {
+  if (!accessToken) {
     return res.status(403).json({ msg: "authorization denied" });
   }
 
-  jwt.verify(jwtToken, KEYS.JWT_KEY, (err, payload) => {
-    if (err) return res.status(403);
-    req.userId = payload.user.userId;
+  try {
+    const {
+      user: { userId },
+    } = jwt.verify(accessToken, KEYS.JWT_KEY);
+
+    req.userId = userId;
     next();
-  });
+  } catch (err) {
+    res.status(403).json(err);
+  }
 };

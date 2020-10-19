@@ -4,9 +4,9 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const SIGNOUT_CURRENT_USER = "SIGNOUT_CURRENT_USER";
 export const RECEIVE_AUTH_ERRORS = "RECEIVE_AUTH_ERRORS";
 
-export const setCurrentUser = (payload) => ({
+export const setCurrentUser = ({ user }) => ({
   type: SET_CURRENT_USER,
-  user: payload,
+  user,
 });
 
 export const signoutCurrentUser = () => ({
@@ -19,18 +19,10 @@ export const receiveErrors = (errors) => ({
 });
 
 export const register = (user) => (dispatch) =>
-  APIUtil.register(user).then((res) => {
-    const { jwtToken, user } = res.data;
-    localStorage.setItem("jwtToken", jwtToken);
-    dispatch(setCurrentUser(user));
-  });
+  APIUtil.register(user).then((res) => dispatch(setCurrentUser(res.data)));
 
 export const signin = (user) => (dispatch) =>
-  APIUtil.signin(user).then((res) => {
-    const { jwtToken, user } = res.data;
-    localStorage.setItem("jwtToken", jwtToken);
-    dispatch(setCurrentUser(user));
-  });
+  APIUtil.signin(user).then((res) => dispatch(setCurrentUser(res.data)));
 
 export const fetchUser = (userId) => (dispatch) =>
   APIUtil.fetchUser(userId).then((res) => dispatch(setCurrentUser(res.data)));
@@ -41,6 +33,7 @@ export const updateUser = (user, userId) => (dispatch) =>
   );
 
 export const signout = () => (dispatch) => {
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
   dispatch(signoutCurrentUser());
 };

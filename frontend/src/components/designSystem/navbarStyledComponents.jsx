@@ -5,9 +5,10 @@ export const NavBar = styled.div`
   flex-direction: row;
   font-weight: 400;
   justify-content: center;
+
   position: fixed;
   height: 50px;
-  width: 100%;
+  width: 100vw;
   min-width: 900px;
   box-sizing: border-box;
   left: 0;
@@ -34,10 +35,11 @@ export const MiddleNavWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 90%;
+  width: 90vw;
   height: 100%;
   max-width: 1240px;
   min-width: 900px;
+  margin: 0;
   position: relative;
   box-sizing: border-box;
 `;
