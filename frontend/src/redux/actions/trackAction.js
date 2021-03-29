@@ -32,16 +32,22 @@ export const clearTrackErrors = () => ({
 });
 
 export const fetchAllTracks = () => (dispatch) =>
-  APIUtil.fetchAllTracks().then((res) => dispatch(receiveAllTracks(res.data)));
+  APIUtil.fetchAllTracks()
+    .then((res) => dispatch(receiveAllTracks(res.data)))
+    .catch((err) => console.error(err));
 
 export const fetchTrack = (trackId) => (dispatch) =>
-  APIUtil.fetchTrack(trackId).then((res) => dispatch(receiveTrack(res.data)));
+  APIUtil.fetchTrack(trackId)
+    .then((res) => dispatch(receiveTrack(res.data)))
+    .catch((err) => console.error(err));
 
 export const createTrack = (track) => (dispatch) =>
-  APIUtil.createTrack(track).then((res) => {
-    dispatch(receiveTrack(res.data));
-    dispatch(closeModal({ type: "loading", data: false }));
-  });
+  APIUtil.createTrack(track)
+    .then((res) => {
+      dispatch(receiveTrack(res.data));
+      dispatch(closeModal({ type: "loading", data: false }));
+  })
+    .catch((err) => console.error(err));
 
 export const updateTrack = (track, id) => (dispatch) => {
   return APIUtil.updateTrack(track, id).then((res) => {
