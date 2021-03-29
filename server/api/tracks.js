@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 
     res.json(tracks.rows);
   } catch (err) {
-    res.status(500).json("server error");
+    res.status(500).json({"server error": "fetch all tracks", "message: ": err});
   }
 });
 
